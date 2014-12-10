@@ -1,0 +1,5 @@
+etna_maths:
+    resource: "@EtnaMathsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

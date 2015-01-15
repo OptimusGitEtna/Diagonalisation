@@ -21,7 +21,7 @@ class DefaultService {
         $aResult = array();
         $aResult['nom'] = $oObject->getNom();
         $aResult['resultat'] = 2;
-        foreach ($oObject->getDigits() as $key => &$oDigit)
+        foreach ($oObject->getDigits() as $key => $oDigit)
         {
             $aResult[$oDigit->getPosition()] = $oDigit->getValue();
         }

@@ -1,0 +1,3 @@
+services:
+    etna.mathsbundle.services.test:
+        class: Etna\MathsBundle\Services\DefaultService

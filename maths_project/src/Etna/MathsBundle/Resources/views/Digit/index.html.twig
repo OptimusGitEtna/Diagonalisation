@@ -8,7 +8,8 @@
             <tr>
                 <th>Id</th>
                 <th>Position</th>
-                <th>Libelle</th>
+                <th>Valeur</th>
+                <th>Polynome</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,7 +18,8 @@
             <tr>
                 <td><a href="{{ path('digit_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.position }}</td>
-                <td>{{ entity.libelle }}</td>
+                <td>{{ entity.value }}</td>
+                <td>{{ entity.polynome }}</td>
                 <td>
                 <ul>
                     <li>

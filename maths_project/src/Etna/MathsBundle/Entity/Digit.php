@@ -38,9 +38,9 @@ class Digit
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=255)
+     * @ORM\Column(name="value", type="integer")
      */
-    private $libelle;
+    private $value;
 
 
     /**
@@ -54,25 +54,75 @@ class Digit
     }
 
     /**
-     * Set libelle
+     * Set position
      *
-     * @param string $libelle
+     * @param integer $position
      * @return Digit
      */
-    public function setLibelle($libelle)
+    public function setPosition($position)
     {
-        $this->libelle = $libelle;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get libelle
+     * Get position
      *
-     * @return string 
+     * @return integer 
      */
-    public function getLibelle()
+    public function getPosition()
     {
-        return $this->libelle;
+        return $this->position;
+    }
+
+    /**
+     * Set value
+     *
+     * @param integer $value
+     * @return Digit
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return integer 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set polynome
+     *
+     * @param \Etna\MathsBundle\Entity\Polynome $polynome
+     * @return Digit
+     */
+    public function setPolynome(\Etna\MathsBundle\Entity\Polynome $polynome = null)
+    {
+        $this->polynome = $polynome;
+
+        return $this;
+    }
+
+    /**
+     * Get polynome
+     *
+     * @return \Etna\MathsBundle\Entity\Polynome 
+     */
+    public function getPolynome()
+    {
+        return $this->polynome;
+    }
+
+    public function __toString() {
+        return (string)$this->value;
     }
 }

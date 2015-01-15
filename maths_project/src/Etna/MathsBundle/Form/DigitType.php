@@ -16,7 +16,7 @@ class DigitType extends AbstractType
     {
         $builder
             ->add('position')
-            ->add('libelle')
+            ->add('value')
             ->add('polynome')
         ;
     }

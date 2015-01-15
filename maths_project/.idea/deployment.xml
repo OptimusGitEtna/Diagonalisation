@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="etna_maths">
+    <serverData>
+      <paths name="etna_maths">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="projet_etna/projet_maths/Diagonalisation/maths_project/web" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
+

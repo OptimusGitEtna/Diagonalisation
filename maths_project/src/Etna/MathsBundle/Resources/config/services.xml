@@ -4,17 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
         <parameter key="etna_maths.example.class">Etna\MathsBundle\Example</parameter>
     </parameters>
 
     <services>
-        <service id="etna_maths.example" class="%etna_maths.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="etna.mathsbundle" class="Etna\MathsBundle\Services\DefaultService">
+            <argument>toto</argument>
         </service>
     </services>
-    -->
 </container>

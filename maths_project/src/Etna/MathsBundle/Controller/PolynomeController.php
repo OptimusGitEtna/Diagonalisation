@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Etna\MathsBundle\Entity\Polynome;
 use Etna\MathsBundle\Form\PolynomeType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Polynome controller.
@@ -28,8 +29,8 @@ class PolynomeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('EtnaMathsBundle:Polynome')->findAll();
+        $aAllPolynomeResult = $this->calculPolynome($entities);
 
         return array(
             'entities' => $entities,
@@ -47,7 +48,6 @@ class PolynomeController extends Controller
         $entity = new Polynome();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -55,7 +55,6 @@ class PolynomeController extends Controller
 
             return $this->redirect($this->generateUrl('polynome_show', array('id' => $entity->getId())));
         }
-
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -75,9 +74,7 @@ class PolynomeController extends Controller
             'action' => $this->generateUrl('polynome_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -92,7 +89,6 @@ class PolynomeController extends Controller
     {
         $entity = new Polynome();
         $form   = $this->createCreateForm($entity);
-
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -109,15 +105,11 @@ class PolynomeController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('EtnaMathsBundle:Polynome')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Polynome entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
@@ -134,16 +126,12 @@ class PolynomeController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('EtnaMathsBundle:Polynome')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Polynome entity.');
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -164,9 +152,7 @@ class PolynomeController extends Controller
             'action' => $this->generateUrl('polynome_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
@@ -179,23 +165,18 @@ class PolynomeController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('EtnaMathsBundle:Polynome')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Polynome entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
 
             return $this->redirect($this->generateUrl('polynome_edit', array('id' => $id)));
         }
-
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -244,4 +225,60 @@ class PolynomeController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Calcul un polynome de degré 3
+     *
+     * @return array : Tableau des resultats du polynome.
+     */
+    private function calculPolynome($aPolynome)
+    {
+
+        foreach ($aPolynome as $oPolynome)
+        {
+            $aPolynomeContent[] = $this->container->get('etna.mathsbundle')->convertObjectToArray($oPolynome);
+        }
+        return $aPolynomeContent;
+    }
+
+    /**
+     * Calcul les racines du polynome de degré 3 et retourne le resultat.
+     *
+     * @Route("/ajax/polynome/result/", name="show_polynome_result")
+     * @Method("POST")
+     */
+    public function makePloynomeResultInAjax(Request $oResquest)
+    {
+        $iResult = 0;
+        if ($oResquest->isXmlHttpRequest()) {
+
+            $x3 = $oResquest->request->get('x3');
+            $x2 = $oResquest->request->get('x2');
+            $x1 = $oResquest->request->get('x1');
+            $x0 = $oResquest->request->get('x0');
+            $iResult = $x3+$x2+$x1+$x0;
+        }
+        return new Response($iResult);
+    }
+
+    /**
+     * Calcul les racines du polynome de degré 3 et retourne le resultat.
+     *
+     * @Route("/ajax/polynome/result/", name="show_polynome_result")
+     * @Method("POST")
+     */
+    public function addPolynomeRaw(Request $oResquest)
+    {
+        $iResult = 0;
+        if ($oResquest->isXmlHttpRequest()) {
+
+            $x3 = $oResquest->request->get('x3');
+            $x2 = $oResquest->request->get('x2');
+            $x1 = $oResquest->request->get('x1');
+            $x0 = $oResquest->request->get('x0');
+            $iResult = $x3+$x2+$x1+$x0;
+        }
+        return new Response($iResult);
+    }
+
 }

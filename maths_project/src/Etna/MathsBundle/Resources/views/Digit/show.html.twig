@@ -15,11 +15,14 @@
             </tr>
             <tr>
                 <th>Libelle</th>
-                <td>{{ entity.libelle }}</td>
+                <td>{{ entity.value }}</td>
+            </tr>
+            <tr>
+                <th>Polynome</th>
+                <td>{{ entity.polynome }}</td>
             </tr>
         </tbody>
     </table>
-
         <ul class="record_actions">
     <li>
         <a href="{{ path('digit') }}">

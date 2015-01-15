@@ -22,7 +22,7 @@ class Polynome
     private $id;
     
     /**
-    * @ORM\OneToMany(targetEntity="Digit", mappedBy="$polynome")
+    * @ORM\OneToMany(targetEntity="Digit", mappedBy="polynome")
     * @ORM\JoinColumn(name="digit_id", referencedColumnName="id")
     */
     private $digits;
@@ -33,6 +33,13 @@ class Polynome
      * @ORM\Column(name="degre", type="integer")
      */
     private $degre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="resultat", type="integer", nullable=true)
+     */
+    private $resultat;
 
     /**
      * @var string
@@ -96,5 +103,73 @@ class Polynome
     public function getNom()
     {
         return $this->nom;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->digits = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add digits
+     *
+     * @param \Etna\MathsBundle\Entity\Digit $digits
+     * @return Polynome
+     */
+    public function addDigit(\Etna\MathsBundle\Entity\Digit $digits)
+    {
+        $this->digits[] = $digits;
+
+        return $this;
+    }
+
+    /**
+     * Remove digits
+     *
+     * @param \Etna\MathsBundle\Entity\Digit $digits
+     */
+    public function removeDigit(\Etna\MathsBundle\Entity\Digit $digits)
+    {
+        $this->digits->removeElement($digits);
+    }
+
+    /**
+     * Get digits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDigits()
+    {
+        return $this->digits;
+    }
+
+    /**
+     * Set resultat
+     *
+     * @param integer $resultat
+     * @return Polynome
+     */
+    public function setResultat($resultat)
+    {
+        $this->resultat = $resultat;
+
+        return $this;
+    }
+
+    /**
+     * Get resultat
+     *
+     * @return integer 
+     */
+    public function getResultat()
+    {
+        return $this->resultat;
     }
 }

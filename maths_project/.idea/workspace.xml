@@ -26,14 +26,14 @@
       <file leaf-file-name="index.html.twig" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="90" selection-start="3275" selection-end="3275" vertical-scroll-proportion="0.43641618" vertical-offset="568" max-vertical-offset="3330">
+            <state line="20" column="97" selection-start="999" selection-end="999" vertical-scroll-proportion="0.433526" vertical-offset="0" max-vertical-offset="3315">
               <folding>
-                <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
-                <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
-                <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
-                <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
-                <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
-                <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="6013:6025" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="9072:9085" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="9153:9165" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="9233:9245" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="9313:9325" placeholder="..." />
+                <marker date="1421448689000" expanded="true" signature="9393:9405" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -651,12 +651,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="20" selection-start="996" selection-end="996" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3780">
           <folding>
-            <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="6013:6025" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9072:9085" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9153:9165" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9233:9245" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9313:9325" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9393:9405" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -925,14 +925,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="90" selection-start="3275" selection-end="3275" vertical-scroll-proportion="0.43641618" vertical-offset="568" max-vertical-offset="3330">
+        <state line="20" column="97" selection-start="999" selection-end="999" vertical-scroll-proportion="0.433526" vertical-offset="0" max-vertical-offset="3315">
           <folding>
-            <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
-            <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="6013:6025" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9072:9085" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9153:9165" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9233:9245" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9313:9325" placeholder="..." />
+            <marker date="1421448689000" expanded="true" signature="9393:9405" placeholder="..." />
           </folding>
         </state>
       </provider>

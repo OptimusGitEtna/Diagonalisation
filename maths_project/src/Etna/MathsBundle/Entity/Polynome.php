@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Polynome
 {
+
+    const DEGRE = 3;
     /**
      * @var integer
      *
@@ -22,7 +24,7 @@ class Polynome
     private $id;
     
     /**
-    * @ORM\OneToMany(targetEntity="Digit", mappedBy="polynome")
+    * @ORM\OneToMany(targetEntity="Digit", mappedBy="polynome", cascade={"persist"})
     * @ORM\JoinColumn(name="digit_id", referencedColumnName="id")
     */
     private $digits;
@@ -125,6 +127,7 @@ class Polynome
      */
     public function addDigit(\Etna\MathsBundle\Entity\Digit $digits)
     {
+        $digits->setPolynome($this);
         $this->digits[] = $digits;
 
         return $this;

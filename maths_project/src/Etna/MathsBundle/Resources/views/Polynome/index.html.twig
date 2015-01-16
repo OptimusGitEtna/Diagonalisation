@@ -56,7 +56,7 @@
                                         <td class="action-col">
                                             <div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div>
                                             <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div>
-                                            <div class="play btn btn-info btn-xs center"><i class="fa fa-play"></i></div>
+                                            <div class="play btn btn-info btn-xs center">=</i></div>
                                             <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div>
                                             <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
                                             <input type="hidden" class="index" value="{{ loop.index }}"/>
@@ -118,7 +118,8 @@
                     $('.edit').on('click', function(e) {
                         $(this).parent().parent().find('td').each(function(index) {
                             if (index <= 4 && active == false) {
-                                $(this).replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+this.innerHTML+'" /></td>'));
+                                //var contenthtml = trim(this.innerHTML);
+                                $(this).replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
                             }
                         });
                         active = true;
@@ -126,7 +127,6 @@
 
                     $('.cancel').on('click', function(e) {
                         $('.field').each(function(index) {
-                            //console.log($(this).prop('tagName'));
                             if (index <= 4 && active == true) {
                                 $(this).replaceWith(($(this).val()));
                             }
@@ -150,10 +150,10 @@
                             url: "{{ path('show_polynome_result') }}",
                             data: { x3: x3, x2: x2, x1: x1, x0: x0 }
                         })
-                                .done(function( result ) {
-                                    console.log(result);
-                                    $('.result'+indiceRow).text(result);
-                                });
+                        .done(function( result ) {
+                            console.log(result);
+                            $('.result'+indiceRow).text(result);
+                        });
                     });
 
                     $('.fa-trash-o').on('click', function(e) {
@@ -162,6 +162,26 @@
 
                 $('.save').on('click', function(e) {
                     alert('sauvegarde de la ligne en base de données');
+                    /*
+                    $('.field').each(function(index) {
+                        if (index <= 4 && active == true) {
+                            $(this).replaceWith(($(this).val()));
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('add_polynome_raw') }}",
+                        data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
+                    })
+                            .done(function( result ) {
+                                console.log('resultat:');
+                                console.log(result);
+                                //$('.result'+indiceRow).text(result);
+                            });
+
+                    */
+
                 });
 
                 // Voir la technique de Madeleine pour le clonage de template.
@@ -174,23 +194,22 @@
                 $('tbody').on('click', '.add',function(e) {
                     console.log('transfert des données en ajax');
 
-                    var x0 = $(this).closest('tr').find('.x4').text();
-                    var x1 = $(this).closest('tr').find('.x3').text();
-                    var x2 = $(this).closest('tr').find('.x2').text();
-                    var x3 = $(this).closest('tr').find('.x1').text();
-                    var x4 = $(this).closest('tr').find('.x0').text();
-                    var polyname = $(this).closest('tr').find('.poly-name').val();
-                    console.log("test1 : "+polyname);
-                    console.log($('.polyname').val());
+                    var x0 = $(this).closest('tr').find('.x0 input').val();
+                    var x1 = $(this).closest('tr').find('.x3 input').val();
+                    var x2 = $(this).closest('tr').find('.x2 input').val();
+                    var x3 = $(this).closest('tr').find('.x1 input').val();
+                    var polyname = $(this).closest('tr').find('.polyname').val();
+                    console.log("test1 : " + polyname);
+                    console.log(x1);
                     $.ajax({
                         type: "POST",
-                        url: "{{ path('show_polynome_result') }}",
-                        data: { name: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
+                        url: "{{ path('add_polynome_raw') }}",
+                        data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
                     })
-                            .done(function( result ) {
-                                console.log(result);
-                                //$('.result'+indiceRow).text(result);
-                            });
+                    .done(function( result ) {
+                        console.log('resultat:');
+                        console.log(result);
+                    });
                 });
             });
         </script>

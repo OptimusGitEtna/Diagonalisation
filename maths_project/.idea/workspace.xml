@@ -23,20 +23,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DigitController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DigitController.php">
+      <file leaf-file-name="index.html.twig" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3705">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main_layout.html.twig" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Layout/main_layout.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="63" selection-start="2654" selection-end="2704" vertical-scroll-proportion="-15.625" vertical-offset="390" max-vertical-offset="1395">
-              <folding />
+            <state line="58" column="90" selection-start="3275" selection-end="3275" vertical-scroll-proportion="0.43641618" vertical-offset="568" max-vertical-offset="3330">
+              <folding>
+                <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
+                <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
+                <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
+                <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
+                <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
+                <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,41 +42,7 @@
       <file leaf-file-name="Polynome.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="16" selection-start="1066" selection-end="1066" vertical-scroll-proportion="-6.25" vertical-offset="780" max-vertical-offset="2715">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Digit.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Digit.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="22" selection-start="2053" selection-end="2053" vertical-scroll-proportion="-25.291666" vertical-offset="1268" max-vertical-offset="2010">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="74" selection-start="2500" selection-end="2500" vertical-scroll-proportion="-19.375" vertical-offset="270" max-vertical-offset="3045">
-              <folding>
-                <marker date="1421349795000" expanded="true" signature="5940:5952" placeholder="..." />
-                <marker date="1421349795000" expanded="true" signature="8303:8316" placeholder="..." />
-                <marker date="1421349795000" expanded="true" signature="8384:8396" placeholder="..." />
-                <marker date="1421349795000" expanded="true" signature="8464:8476" placeholder="..." />
-                <marker date="1421349795000" expanded="true" signature="8544:8556" placeholder="..." />
-                <marker date="1421349795000" expanded="true" signature="8624:8636" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DigitType.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Form/DigitType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="24" selection-start="482" selection-end="482" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="675">
+            <state line="129" column="36" selection-start="2197" selection-end="2197" vertical-scroll-proportion="-20.0" vertical-offset="1455" max-vertical-offset="2760">
               <folding />
             </state>
           </provider>
@@ -87,27 +51,27 @@
       <file leaf-file-name="PolynomeController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/PolynomeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="272" column="30" selection-start="8124" selection-end="8124" vertical-scroll-proportion="-5.658228" vertical-offset="3633" max-vertical-offset="4350">
+            <state line="309" column="36" selection-start="9447" selection-end="9455" vertical-scroll-proportion="-23.75" vertical-offset="4065" max-vertical-offset="4770">
               <folding>
-                <element signature="e#47#92#0" expanded="true" />
+                <element signature="e#47#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/config/services.xml">
+      <file leaf-file-name="Digit.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Digit.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="9" selection-start="385" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+            <state line="47" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2070">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultService.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DefaultService.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Services/DefaultService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="50" selection-start="452" selection-end="452" vertical-scroll-proportion="0.39589444" vertical-offset="0" max-vertical-offset="682">
+            <state line="27" column="0" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="540">
               <folding />
             </state>
           </provider>
@@ -136,18 +100,17 @@
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Digit/index.html.twig" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Layout/main_layout.html.twig" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Resources/config/services.xml" />
+        <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Services/DefaultService.php" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Digit.php" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Controller/PolynomeController.php" />
         <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig" />
-        <option value="$PROJECT_DIR$/src/Etna/MathsBundle/Services/DefaultService.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
-    <option name="y" value="817" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="849" />
   </component>
@@ -177,6 +140,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -543,45 +507,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="maths_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="maths_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Etna" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MathsBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maths_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -637,21 +594,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="817" width="1440" height="849" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="849" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4729194" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4729194" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20886981" sideWeight="0.5019815" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20886981" sideWeight="0.4980185" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21459228" sideWeight="0.5019815" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21459228" sideWeight="0.4980185" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -687,21 +644,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="20" selection-start="996" selection-end="996" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3780">
           <folding>
-            <marker date="1421349795000" expanded="true" signature="5940:5952" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8303:8316" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8384:8396" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8464:8476" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8544:8556" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8624:8636" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -710,43 +665,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="196" column="9" selection-start="5317" selection-end="5317" vertical-scroll-proportion="0.0" vertical-offset="2940" max-vertical-offset="3705">
           <folding>
-            <element signature="e#47#92#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Acme/DemoBundle/Controller/SecuredController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1110" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContext.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="47" selection-start="909" selection-end="933" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="1365" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContextInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="23" selection-start="613" selection-end="626" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="840" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="53" selection-start="441" selection-end="441" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/PolynomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="9" selection-start="5317" selection-end="5317" vertical-scroll-proportion="0.0" vertical-offset="2940" max-vertical-offset="3705">
-          <folding>
-            <element signature="e#47#92#0" expanded="true" />
+            <element signature="e#47#81#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -782,7 +701,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="196" column="9" selection-start="5317" selection-end="5317" vertical-scroll-proportion="0.0" vertical-offset="2940" max-vertical-offset="3705">
           <folding>
-            <element signature="e#47#92#0" expanded="true" />
+            <element signature="e#47#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Acme/DemoBundle/Controller/SecuredController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1110" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContext.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="47" selection-start="909" selection-end="933" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="1365" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContextInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="23" selection-start="613" selection-end="626" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="840" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="53" selection-start="441" selection-end="441" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1590">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/PolynomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="9" selection-start="5317" selection-end="5317" vertical-scroll-proportion="0.0" vertical-offset="2940" max-vertical-offset="3705">
+          <folding>
+            <element signature="e#47#81#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -876,9 +831,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="62" selection-end="62" vertical-scroll-proportion="0.04398827" vertical-offset="0" max-vertical-offset="682">
-          <folding />
-        </state>
+        <state line="2" column="0" selection-start="62" selection-end="62" vertical-scroll-proportion="0.04398827" vertical-offset="0" max-vertical-offset="682" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DefaultController.php">
@@ -888,16 +841,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Form/PolynomeType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="482" selection-end="482" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="660">
-          <folding />
-        </state>
+        <state line="18" column="24" selection-start="482" selection-end="482" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="660" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Menu/menu.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="21" selection-start="582" selection-end="582" vertical-scroll-proportion="0.34042552" vertical-offset="0" max-vertical-offset="705">
-          <folding />
-        </state>
+        <state line="16" column="21" selection-start="582" selection-end="582" vertical-scroll-proportion="0.34042552" vertical-offset="0" max-vertical-offset="705" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Digit/index.html.twig">
@@ -912,91 +861,79 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/public/js/editable-table.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="-0.5194805" vertical-offset="360" max-vertical-offset="2190">
-          <folding />
-        </state>
+        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="-0.5194805" vertical-offset="360" max-vertical-offset="2190" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Digit/new.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="706">
-          <folding>
-            <marker date="1418848915000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1418848915000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1418848915000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="706" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Form/DigitType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="482" selection-end="482" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="675">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DigitController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Digit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="22" selection-start="2053" selection-end="2053" vertical-scroll-proportion="-25.291666" vertical-offset="1268" max-vertical-offset="2010">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="16" selection-start="1066" selection-end="1066" vertical-scroll-proportion="-6.25" vertical-offset="780" max-vertical-offset="2715">
-          <folding />
-        </state>
+        <state line="18" column="24" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="705" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/config/services.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="9" selection-start="385" selection-end="409" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+        <state line="11" column="9" selection-start="385" selection-end="409" vertical-scroll-proportion="0.23371105" vertical-offset="0" max-vertical-offset="706">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Layout/main_layout.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="63" selection-start="2654" selection-end="2704" vertical-scroll-proportion="-15.625" vertical-offset="390" max-vertical-offset="1395">
+        <state line="51" column="63" selection-start="2654" selection-end="2704" vertical-scroll-proportion="0.5319149" vertical-offset="390" max-vertical-offset="1395">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/DigitController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.63829786" vertical-offset="450" max-vertical-offset="3795" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Services/DefaultService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Digit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2070">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Entity/Polynome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="36" selection-start="2197" selection-end="2197" vertical-scroll-proportion="-20.0" vertical-offset="1455" max-vertical-offset="2760">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Controller/PolynomeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="272" column="30" selection-start="8124" selection-end="8124" vertical-scroll-proportion="-5.658228" vertical-offset="3633" max-vertical-offset="4350">
+        <state line="309" column="36" selection-start="9447" selection-end="9455" vertical-scroll-proportion="-23.75" vertical-offset="4065" max-vertical-offset="4770">
           <folding>
-            <element signature="e#47#92#0" expanded="true" />
+            <element signature="e#47#81#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Resources/views/Polynome/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="74" selection-start="2500" selection-end="2500" vertical-scroll-proportion="-19.375" vertical-offset="270" max-vertical-offset="3045">
+        <state line="58" column="90" selection-start="3275" selection-end="3275" vertical-scroll-proportion="0.43641618" vertical-offset="568" max-vertical-offset="3330">
           <folding>
-            <marker date="1421349795000" expanded="true" signature="5940:5952" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8303:8316" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8384:8396" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8464:8476" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8544:8556" placeholder="..." />
-            <marker date="1421349795000" expanded="true" signature="8624:8636" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="5993:6005" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9052:9065" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9133:9145" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9213:9225" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9293:9305" placeholder="..." />
+            <marker date="1421446383000" expanded="true" signature="9373:9385" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Etna/MathsBundle/Services/DefaultService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="50" selection-start="452" selection-end="452" vertical-scroll-proportion="0.39589444" vertical-offset="0" max-vertical-offset="682">
-          <folding />
         </state>
       </provider>
     </entry>

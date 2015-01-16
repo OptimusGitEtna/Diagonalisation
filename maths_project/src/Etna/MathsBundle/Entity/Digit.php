@@ -43,6 +43,10 @@ class Digit
     private $value;
 
 
+    public function __construct()
+    {
+    }
+
     /**
      * Get id
      *

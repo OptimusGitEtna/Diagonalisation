@@ -2,6 +2,7 @@
 
 namespace Etna\MathsBundle\Controller;
 
+use Etna\MathsBundle\Entity\Digit;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -233,12 +234,15 @@ class PolynomeController extends Controller
      */
     private function calculPolynome($aPolynome)
     {
-
+        $aPolynomeContent = array();
+        if (isset($aPolynome)) {
         foreach ($aPolynome as $oPolynome)
         {
             $aPolynomeContent[] = $this->container->get('etna.mathsbundle')->convertObjectToArray($oPolynome);
         }
+
         return $aPolynomeContent;
+        }
     }
 
     /**
@@ -262,9 +266,10 @@ class PolynomeController extends Controller
     }
 
     /**
-     * Calcul les racines du polynome de degré 3 et retourne le resultat.
+     * Ajoute la nouvelle ligne ajouté a la liste des polynomes.
+     * Persiste les données en base et et retourne le script de la vue pour l'insertion dans la grille.
      *
-     * @Route("/ajax/polynome/result/", name="show_polynome_result")
+     * @Route("/ajax/polynome/addraw/", name="add_polynome_raw")
      * @Method("POST")
      */
     public function addPolynomeRaw(Request $oResquest)
@@ -272,13 +277,36 @@ class PolynomeController extends Controller
         $iResult = 0;
         if ($oResquest->isXmlHttpRequest()) {
 
+            $oEm = $this->getDoctrine()->getManager();
+
+
+            // Recuperation des données de la requete ajax
+            $polyname = $oResquest->request->get('polyname');
             $x3 = $oResquest->request->get('x3');
             $x2 = $oResquest->request->get('x2');
             $x1 = $oResquest->request->get('x1');
             $x0 = $oResquest->request->get('x0');
             $iResult = $x3+$x2+$x1+$x0;
+            $iResult = $polyname."".$x3."".$x2."".$x1."".$x0;
+
+            // Enregistrement des saisies en bases
+            $oPolynome = new Polynome();
+            $oPolynome->setDegre(Polynome::DEGRE);
+
+            for ($i = 0; $i <= Polynome::DEGRE ; ++$i)
+            {
+               $oDigit = new Digit();
+               $oDigit->setPosition($i);
+               $test = "x$i";
+               $oDigit->setValue($$test);
+               $oPolynome->addDigit($oDigit);
+            }
+
+            $oPolynome->setNom($polyname);
+            $oPolynome->setResultat($iResult);
+            $oEm->persist($oPolynome);
+            $oEm->flush();
         }
         return new Response($iResult);
     }
-
 }

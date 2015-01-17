@@ -55,7 +55,7 @@
                                         <td class="action-col">
                                             <div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div>
                                             <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div>
-                                            <div class="play btn btn-info btn-xs center">=</i></div>
+                                            <div class="play btn btn-info btn-xs center">=</div>
                                             <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div>
                                             <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
                                             <input type="hidden" class="index" value="{{ loop.index }}"/>
@@ -93,6 +93,9 @@
         <script>
             jQuery(document).ready(function() {
                 var active = false;
+
+
+
                     $('.edit').on('click', function(e) {
                         $(this).parent().parent().find('td').each(function(index) {
                             if (index <= 4 && active == false) {
@@ -112,7 +115,7 @@
                         active = false;
                     });
 
-                    $('.play').on('click', function(e) {
+                    $('.action-col').on('click','.play', function(e) {
                         var x0 = $(this).closest('tr').find('.x4').text();
                         var x1 = $(this).closest('tr').find('.x3').text();
                         var x2 = $(this).closest('tr').find('.x2').text();
@@ -134,28 +137,9 @@
                         });
                     });
 
-                    $('.del').on('click', function(e) {
-                        var polyname = $(this).closest('tr').find('.polyname').text();
-                        var x1 = $(this).closest('tr').find('.x3').text();
-                        var x2 = $(this).closest('tr').find('.x2').text();
-                        var x3 = $(this).closest('tr').find('.x1').text();
-                        var x0 = $(this).closest('tr').find('.x0').text();
-                        $(this).closest('tr').remove();
-
-                        $.ajax({
-                            type: "DELETE",
-                            url: "{{ path('delete_polynome_raw') }}",
-                            data: { x3: x3, x2: x2, x1: x1, x0: x0, polyname: polyname }
-                        })
-                        .done(function(result) {
-                            alert ("FAIRE POPIN DE CONFIRMATION DE SUPPRESSION");
-                            $('.result'+indiceRow).text(result);
-                        });
-                    });
-
                 $('.save').on('click', function(e) {
                     alert('sauvegarde de la ligne en base de données');
-                    /*
+
                     $('.field').each(function(index) {
                         if (index <= 4 && active == true) {
                             $(this).replaceWith(($(this).val()));
@@ -167,33 +151,39 @@
                         url: "{{ path('add_polynome_raw') }}",
                         data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
                     })
-                            .done(function( result ) {
-                                console.log('resultat:');
-                                console.log(result);
-                                //$('.result'+indiceRow).text(result);
-                            });
-
-                    */
-
+                    .done(function( result ) {
+                        console.log('resultat:');
+                        console.log(result);
+                        //$('.result'+indiceRow).text(result);
+                    });
                 });
 
                 // Voir la technique de Madeleine pour le clonage de template.
-                var form = '<tr class="rowtoadd"><td><input type="text" class="polyname" name="poly-name" value="" style="width: 100px;"/></td><td class="x3"><input type="text" name="x3" value="" style="width: 30px;"/></td><td class="x2"><input type="text" name="x2" value="" style="width: 30px;"/></td><td class="x1"><input type="text" name="x1" value="" style="width: 30px;"/></td><td class="x0"><input type="text" name="x0" value="" style="width: 30px;"/></td><td class="result">content result</td><td class="action-col"></div><div class="add btn btn-info btn-xs center"> <i class="fa fa-plus"></i> </div></td></tr>';
+                var form = '<tr class="rowtoadd"><td><input type="text" class="polyname field" name="poly-name" value="" style="width: 100px;"/></td><td class="x3"><input class="field" type="text" name="x3" value="" style="width: 30px;"/></td><td class="x2"><input class="field" type="text" name="x2" value="" style="width: 30px;"/></td><td class="x1"><input class="field" type="text" name="x1" value="" style="width: 30px;"/></td><td class="x0"><input class="field" type="text" name="x0" value="" style="width: 30px;"/></td><td class="result">0</td><td class="action-field action-col"></div><div class="add btn btn-info btn-xs center"> <i class="fa fa-plus"></i> </div></td></tr>';
                 $('#editable-sample_new').on('click', function(e) {
                     console.log(form);
                     $('tbody').append(form);
                 });
 
                 $('tbody').on('click', '.add',function(e) {
-                    console.log('transfert des données en ajax');
 
                     var x0 = $(this).closest('tr').find('.x0 input').val();
                     var x1 = $(this).closest('tr').find('.x3 input').val();
                     var x2 = $(this).closest('tr').find('.x2 input').val();
                     var x3 = $(this).closest('tr').find('.x1 input').val();
                     var polyname = $(this).closest('tr').find('.polyname').val();
-                    console.log("test1 : " + polyname);
-                    console.log(x1);
+
+                    console.log('check les results:'+x3+''+x2+''+x1+''+x0+''+polyname);
+                    //console.log($('.field'));
+
+                    $('.field').each(function(index){
+                        console.log($(this));
+                        $(this).replaceWith(($(this).val()));
+                        // $(this).closest('tr').replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
+                    });
+
+                    console.log($('.action-field').html());
+                    $('.action-field').replaceWith('<td class="action-col"><div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div> <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div> <div class="play btn btn-info btn-xs center">=</div> <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div> <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div></td>');
                     $.ajax({
                         type: "POST",
                         url: "{{ path('add_polynome_raw') }}",
@@ -201,15 +191,27 @@
                     })
                     .done(function( result ) {
                         console.log('coucou raw');
-
-                        $(this).replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
-
-
-                        $('.rowtoadd td').each(function(index) {
-                            console.log($(this).html())
                         });
                     });
-                });
+
+                    $('.del').on('click', function(e) {
+                        var polyname = $(this).closest('tr').find('.polyname').text();
+                        var x1 = $(this).closest('tr').find('.x3').text();
+                        var x2 = $(this).closest('tr').find('.x2').text();
+                        var x3 = $(this).closest('tr').find('.x1').text();
+                        var x0 = $(this).closest('tr').find('.x0').text();
+
+                        $(this).closest('tr').remove();
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ path('delete_polynome_raw') }}",
+                            data: { x3: x3, x2: x2, x1: x1, x0: x0, polyname: polyname }
+                        })
+                                .done(function(result) {
+                                    //alert ("FAIRE POPIN DE CONFIRMATION DE SUPPRESSION");
+                                });
+                    });
             });
         </script>
 {% endblock javascripts %}

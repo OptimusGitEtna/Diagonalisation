@@ -24,7 +24,7 @@ class Polynome
     private $id;
     
     /**
-    * @ORM\OneToMany(targetEntity="Digit", mappedBy="polynome", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="Digit", mappedBy="polynome", cascade={"all"})
     * @ORM\JoinColumn(name="digit_id", referencedColumnName="id")
     */
     private $digits;

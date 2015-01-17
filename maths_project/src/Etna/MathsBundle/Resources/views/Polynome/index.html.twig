@@ -86,28 +86,7 @@
     </footer>
     <!--footer end-->
     </section>
-    <tr class="rowtoadd">
-            <td><input type="text" name="poly-name" value="coucou toto"/></td>
-                <td class="x3">
-                    test x3
-                </td>
-                <td class="x2">
-                    test x2
-                </td>
-                <td class="x1">
-                    test x1
-                </td>
-                <td class="x0">
-                    test x0
-                </td>
-            <td class="result">content result</td>
-            <td class="action-col">
-                <div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div>
-                <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div>
-                <div class="play btn btn-info btn-xs center"><i class="fa fa-play"></i></div>
-                <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
-            </td>
-    </tr>
+
 {% endblock %}
 {%  block javascripts %}
     {{ parent() }}
@@ -155,8 +134,23 @@
                         });
                     });
 
-                    $('.fa-trash-o').on('click', function(e) {
-                        alert('suppression de la ligne');
+                    $('.del').on('click', function(e) {
+                        var polyname = $(this).closest('tr').find('.polyname').text();
+                        var x1 = $(this).closest('tr').find('.x3').text();
+                        var x2 = $(this).closest('tr').find('.x2').text();
+                        var x3 = $(this).closest('tr').find('.x1').text();
+                        var x0 = $(this).closest('tr').find('.x0').text();
+                        $(this).closest('tr').remove();
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ path('delete_polynome_raw') }}",
+                            data: { x3: x3, x2: x2, x1: x1, x0: x0, polyname: polyname }
+                        })
+                        .done(function(result) {
+                            alert ("FAIRE POPIN DE CONFIRMATION DE SUPPRESSION");
+                            $('.result'+indiceRow).text(result);
+                        });
                     });
 
                 $('.save').on('click', function(e) {
@@ -206,8 +200,14 @@
                         data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
                     })
                     .done(function( result ) {
-                        console.log('resultat:');
-                        console.log(result);
+                        console.log('coucou raw');
+
+                        $(this).replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
+
+
+                        $('.rowtoadd td').each(function(index) {
+                            console.log($(this).html())
+                        });
                     });
                 });
             });

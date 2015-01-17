@@ -309,4 +309,34 @@ class PolynomeController extends Controller
         }
         return new Response($iResult);
     }
+
+    /**
+     * Ajoute la nouvelle ligne ajouté a la liste des polynomes.
+     * Persiste les données en base et et retourne le script de la vue pour l'insertion dans la grille.
+     *
+     * @Route("/ajax/polynome/addraw/", name="delete_polynome_raw")
+     * @Method("DELETE")
+     */
+    public function deletePolynomeRaw(Request $oResquest)
+    {
+        $iResult = 0;
+        if ($oResquest->isXmlHttpRequest()) {
+
+            $oEm = $this->getDoctrine()->getManager();
+
+            // Recuperation des données de la requete ajax
+            $polyname = $oResquest->request->get('polyname');
+            $x3 = $oResquest->request->get('x3');
+            $x2 = $oResquest->request->get('x2');
+            $x1 = $oResquest->request->get('x1');
+            $x0 = $oResquest->request->get('x0');
+
+            $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
+                    ->findOneBy(array('nom' => $polyname));
+
+            $oEm->remove($oPolynome);
+            $oEm->flush();
+        }
+        return new Response();
+    }
 }

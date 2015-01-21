@@ -9,12 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="accueil")
      * @Template()
      */
     public function indexAction()
     {
-
         return $this->render("EtnaMathsBundle:Default:index.html.twig");
     }
 }

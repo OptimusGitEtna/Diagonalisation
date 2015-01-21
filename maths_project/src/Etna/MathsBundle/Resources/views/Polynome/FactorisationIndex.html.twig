@@ -1,0 +1,180 @@
+{% extends "EtnaMathsBundle:Layout:main_layout.html.twig" %}
+
+{% block body -%}
+    <section id="container" class="">
+        <section id="main-content">
+            <section class="wrapper site-min-height">
+                <!-- page start-->
+                <section class="panel">
+                    <header class="panel-heading">
+                        Racines evidentes
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Forme normale</th>
+                                <th>Forme factorisé</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="action-col">
+                                <div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div>
+                                <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div>
+                                <div class="play btn btn-info btn-xs center">=</div>
+                                <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div>
+                                <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
+                            </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <!-- page end-->
+            </section>
+        </section>
+        <!--main content end-->
+        <!--footer start-->
+        <footer class="site-footer">
+            <div class="text-center">
+                Etna promo -  2015
+                <a href="#" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+        </footer>
+        <!--footer end-->
+    </section>
+
+{% endblock %}
+{%  block javascripts %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            var active = false;
+
+
+
+            $('.edit').on('click', function(e) {
+                $(this).parent().parent().find('td').each(function(index) {
+                    if (index <= 4 && active == false) {
+                        //var contenthtml = trim(this.innerHTML);
+                        $(this).replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
+                    }
+                });
+                active = true;
+            });
+
+            $('.cancel').on('click', function(e) {
+                $('.field').each(function(index) {
+                    if (index <= 4 && active == true) {
+                        $(this).replaceWith(($(this).val()));
+                    }
+                });
+                active = false;
+            });
+
+            $('.action-col').on('click','.play', function(e) {
+                var x0 = $(this).closest('tr').find('.x4').text();
+                var x1 = $(this).closest('tr').find('.x3').text();
+                var x2 = $(this).closest('tr').find('.x2').text();
+                var x3 = $(this).closest('tr').find('.x1').text();
+                var x4 = $(this).closest('tr').find('.x0').text();
+                var imgpath = "<img src=\"{{ asset('bundles/etnamaths/images/input-spinner.gif')}}\" />";
+                var indiceRow = $(this).closest('tr').find('.index').val();
+                $('.result'+indiceRow).html(imgpath);
+                console.log($('.result'+indiceRow).val());
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('show_polynome_result') }}",
+                    data: { x3: x3, x2: x2, x1: x1, x0: x0 }
+                })
+                        .done(function( result ) {
+                            console.log(result);
+                            $('.result'+indiceRow).text(result);
+                        });
+            });
+
+            $('.save').on('click', function(e) {
+                alert('sauvegarde de la ligne en base de données');
+
+                $('.field').each(function(index) {
+                    if (index <= 4 && active == true) {
+                        $(this).replaceWith(($(this).val()));
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('add_polynome_raw') }}",
+                    data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
+                })
+                        .done(function( result ) {
+                            console.log('resultat:');
+                            console.log(result);
+                            //$('.result'+indiceRow).text(result);
+                        });
+            });
+
+            // Voir la technique de Madeleine pour le clonage de template.
+            var form = '<tr class="rowtoadd"><td><input type="text" class="polyname field" name="poly-name" value="" style="width: 100px;"/></td><td class="x3"><input class="field" type="text" name="x3" value="" style="width: 30px;"/></td><td class="x2"><input class="field" type="text" name="x2" value="" style="width: 30px;"/></td><td class="x1"><input class="field" type="text" name="x1" value="" style="width: 30px;"/></td><td class="x0"><input class="field" type="text" name="x0" value="" style="width: 30px;"/></td><td class="result">0</td><td class="action-field action-col"></div><div class="add btn btn-info btn-xs center"> <i class="fa fa-plus"></i> </div></td></tr>';
+            $('#editable-sample_new').on('click', function(e) {
+                console.log(form);
+                $('tbody').append(form);
+            });
+
+            $('tbody').on('click', '.add',function(e) {
+
+                var x0 = $(this).closest('tr').find('.x0 input').val();
+                var x1 = $(this).closest('tr').find('.x3 input').val();
+                var x2 = $(this).closest('tr').find('.x2 input').val();
+                var x3 = $(this).closest('tr').find('.x1 input').val();
+                var polyname = $(this).closest('tr').find('.polyname').val();
+
+                console.log('check les results:'+x3+''+x2+''+x1+''+x0+''+polyname);
+                //console.log($('.field'));
+
+                $('.field').each(function(index){
+                    console.log($(this));
+                    $(this).replaceWith(($(this).val()));
+                    // $(this).closest('tr').replaceWith($('<td class="x'+index+'"><input type="text" class="field" style="width: 50px;" value="'+ $.trim(this.innerHTML)+'" /></td>'));
+                });
+
+                console.log($('.action-field').html());
+                $('.action-field').replaceWith('<td class="action-col"><div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div> <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div> <div class="play btn btn-info btn-xs center">=</div> <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div> <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div></td>');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('add_polynome_raw') }}",
+                    data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
+                })
+                        .done(function( result ) {
+                            console.log('coucou raw');
+                        });
+            });
+
+            $('.del').on('click', function(e) {
+                var polyname = $(this).closest('tr').find('.polyname').text();
+                var x1 = $(this).closest('tr').find('.x3').text();
+                var x2 = $(this).closest('tr').find('.x2').text();
+                var x3 = $(this).closest('tr').find('.x1').text();
+                var x0 = $(this).closest('tr').find('.x0').text();
+
+                $(this).closest('tr').remove();
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ path('delete_polynome_raw') }}",
+                    data: { x3: x3, x2: x2, x1: x1, x0: x0, polyname: polyname }
+                })
+                        .done(function(result) {
+                            //alert ("FAIRE POPIN DE CONFIRMATION DE SUPPRESSION");
+                        });
+            });
+        });
+    </script>
+{% endblock javascripts %}

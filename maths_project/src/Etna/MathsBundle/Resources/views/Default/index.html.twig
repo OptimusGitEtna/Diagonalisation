@@ -1,2 +1,36 @@
 {% extends "EtnaMathsBundle:Layout:main_layout.html.twig" %}
 
+
+{% block body -%}
+    <section id="container" class="">
+        <section id="main-content">
+            <section class="wrapper site-min-height">
+                <!-- page start-->
+                <section class="panel">
+                    <header class="panel-heading">
+                        Promo ETNA 2015 - Projet diagonalisation
+                    </header>
+                    <div class="panel-body">
+                        <div class="center" style="text-align:center;padding-top:15%; padding-bottom: 15%;">
+                            <img src="{{ asset('bundles/etnamaths/images/logoetna.jpeg') }}" />
+                        </div>
+                    </div>
+                </section>
+                <!-- page end-->
+            </section>
+        </section>
+        <!--main content end-->
+        <!--footer start-->
+        <footer class="site-footer">
+            <div class="text-center">
+                Etna promo -  2015
+                <a href="#" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+        </footer>
+        <!--footer end-->
+    </section>
+
+{% endblock %}
+

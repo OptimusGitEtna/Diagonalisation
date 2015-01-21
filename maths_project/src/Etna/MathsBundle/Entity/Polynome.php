@@ -39,7 +39,7 @@ class Polynome
     /**
      * @var integer
      *
-     * @ORM\Column(name="resultat", type="integer", nullable=true)
+     * @ORM\Column(name="resultat", type="string", length=20, nullable=true)
      */
     private $resultat;
 
@@ -156,7 +156,7 @@ class Polynome
     /**
      * Set resultat
      *
-     * @param integer $resultat
+     * @param String $resultat
      * @return Polynome
      */
     public function setResultat($resultat)
@@ -169,7 +169,7 @@ class Polynome
     /**
      * Get resultat
      *
-     * @return integer 
+     * @return String
      */
     public function getResultat()
     {

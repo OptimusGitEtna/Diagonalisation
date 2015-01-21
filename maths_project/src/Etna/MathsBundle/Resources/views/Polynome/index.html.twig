@@ -78,7 +78,7 @@
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2013 &copy; FlatLab by VectorLab.
+            Etna promo -  2015
             <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
@@ -124,16 +124,19 @@
                         var imgpath = "<img src=\"{{ asset('bundles/etnamaths/images/input-spinner.gif')}}\" />";
                         var indiceRow = $(this).closest('tr').find('.index').val();
                         $('.result'+indiceRow).html(imgpath);
-                        console.log($('.result'+indiceRow).val());
-
                         $.ajax({
                             type: "POST",
                             url: "{{ path('show_polynome_result') }}",
                             data: { x3: x3, x2: x2, x1: x1, x0: x0 }
                         })
                         .done(function( result ) {
-                            console.log(result);
-                            $('.result'+indiceRow).text(result);
+                            if (result != "") {
+                                $('.result'+indiceRow).text(result);
+                            }
+                            else {
+                                $('.result'+indiceRow).text("Aucune");
+                            }
+
                         });
                     });
 

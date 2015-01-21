@@ -260,7 +260,11 @@ class PolynomeController extends Controller
             $x2 = $oResquest->request->get('x2');
             $x1 = $oResquest->request->get('x1');
             $x0 = $oResquest->request->get('x0');
-            $iResult = $x3+$x2+$x1+$x0;
+
+            //$iResult = $x3+$x2+$x1+$x0;
+
+            $aAllEvidentRoots = $this->findEvidentRootByInterval($x3, $x2, $x1, $x0, -10, 10);
+            $iResult = $aAllEvidentRoots['roots'];
         }
         return new Response($iResult);
     }
@@ -338,5 +342,112 @@ class PolynomeController extends Controller
             $oEm->flush();
         }
         return new Response();
+    }
+
+
+
+    /**
+     * Lists all Polynome entities.
+     *
+     * @Route("/factorisation/racine_evidentes", name="factorisation_polynome")
+     * @Method("GET")
+     * @Template()
+     */
+    public function factorisationIndexAction()
+    {
+        // TODO rendre varaible les coefficient, l'inconnue ainsi que les intervals
+        $aAllEvidentRoots = $this->findEvidentRootByInterval(-1, 6, -11, 6, -10, 10);
+
+        return array(
+            'aAllEvidentRoots' => $aAllEvidentRoots['displayResult'],
+            'evidentRoots' => $aAllEvidentRoots['roots'],
+        );
+    }
+
+    /*
+     * Retourne les racines évidentes dans un interval valeur définit en parametres.
+     */
+    private function findEvidentRootByInterval($a, $b, $c, $d, $iMin, $iMax)
+    {
+        $aResultChecked = array();
+        $bResult = true;
+        //$aResultChecked[] = $this->findEvidenceRoot($a, $b, $c, $d, 3);
+        $sRoots = "";
+        for ($i = $iMin, $nbPoly = 0; $i <= $iMax; ++$i)
+        {
+            $aResultChecked['displayResult'][$i]['isEvidentRoot'] = $this->findEvidenceRoot($a, $b, $c, $d, $i);
+            if (true === $this->findEvidenceRoot($a, $b, $c, $d, $i))
+            {
+                $sRoots .= "[$i] ";
+            }
+
+            $aResultChecked['roots'] = $sRoots;
+        }
+        //var_dump($aResultChecked);
+        return $aResultChecked;
+    }
+
+    /*
+     * Methode retournant le ou les racines évidentes d'un polynome.
+     */
+    private function findEvidenceRoot($a, $b, $c, $d, $x)
+    {
+        $aPolynome = array();
+        $aResult = null;
+/*
+        $aPolynome ['degre3'] = $this->getPuissanceOf($a, $x, 3);
+        $aPolynome ['degre2'] = $this->getPuissanceOf($b, $x, 2);
+        $aPolynome ['degre1'] = $this->getPuissanceOf($c, $x, 1);
+*/
+        $aPolynome ['degre3'] = $a * $x ** 3;
+        $aPolynome ['degre2'] = $b * $x ** 2;
+        $aPolynome ['degre1'] = $c * $x ** 1;
+        $aPolynome ['degre0'] = $d;
+        //var_dump($aPolynome);
+        $iResult = $this->calculatingPolynome($aPolynome);
+        $bResult = $this->isEvidentRoot($iResult);
+
+        return $bResult;
+    }
+
+    /*
+     * Methode retournant la puissance du nombre en parametre.
+     */
+    /*private function getPuissanceOf($a, $x, $iPuissance)
+    {
+        $iResult = $x;
+        for ($i = 1; $i < $iPuissance; ++$i)
+        {
+            $res = $iResult;
+            $iResult *= $x;
+        }
+        $iResult = $a * $iResult;
+        return $iResult;
+    }*/
+
+    /*
+     * Calcul du polynome
+     */
+    private function calculatingPolynome($aPolynome)
+    {
+        $iResult = 0;
+        foreach ($aPolynome as $sKey => $iCoefficient)
+        {
+            $iResult += $iCoefficient;
+        }
+
+        return $iResult;
+    }
+
+    /*
+     * Renvoi true s'il s'agit d'une racine évidente
+     */
+    private function isEvidentRoot($iResult)
+    {
+        if (0 == $iResult)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -50,6 +50,13 @@ class Polynome
      */
     private $nom;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="concat_form", type="string", length=255)
+     */
+    private $concatForm;
+
 
     /**
      * Get id
@@ -156,7 +163,7 @@ class Polynome
     /**
      * Set resultat
      *
-     * @param integer $resultat
+     * @param String $resultat
      * @return Polynome
      */
     public function setResultat($resultat)
@@ -169,7 +176,7 @@ class Polynome
     /**
      * Get resultat
      *
-     * @return integer 
+     * @return String
      */
     public function getResultat()
     {

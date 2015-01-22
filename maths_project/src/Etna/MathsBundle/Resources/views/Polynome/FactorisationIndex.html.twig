@@ -20,16 +20,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="action-col">
-                                <div class="edit btn btn-success btn-xs center"><i class=" fa fa-pencil"></i></div>
-                                <div class="cancel btn btn-danger btn-xs center"><i class="fa fa-chain-broken"></i></div>
-                                <div class="play btn btn-info btn-xs center">=</div>
-                                <div class="save btn btn-warning btn-xs center"><i class="fa fa-save"></i></div>
-                                <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
-                            </td>
+                            {% for oPolynome in aPolynomes %}
+                                <tr>
+                                    <td>{{ oPolynome.nom }}</td>
+                                    <td>{{ oPolynome.concatForm | raw}}</td>
+                                    <td>{{ oPolynome.nom }}</td>
+                                    <td class="action-col">
+                                        <div class="play btn btn-info btn-xs center">factorisation</div>
+                                        <div class="del btn btn-danger btn-xs center"><i class="fa fa-trash-o"></i></div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -56,8 +57,6 @@
     <script>
         jQuery(document).ready(function() {
             var active = false;
-
-
 
             $('.edit').on('click', function(e) {
                 $(this).parent().parent().find('td').each(function(index) {

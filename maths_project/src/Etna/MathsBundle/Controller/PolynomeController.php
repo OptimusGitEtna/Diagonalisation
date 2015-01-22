@@ -47,18 +47,25 @@ class PolynomeController extends Controller
     /**
      * Affiche la liste des polynomes et détermine leur forme factorisé.
      *
-     * @Route("/factorisation/racine_evidentes", name="factorisation_polynome")
+     * @Route("/factorisation/racine_evidentes", name="factorisation_polynome_index")
      * @Method("GET")
      * @Template()
      */
     public function factorisationIndexAction()
     {
-        // TODO rendre varaible les coefficient, l'inconnue ainsi que les intervals
+        // TODO rendre variable les coefficients, l'inconnue ainsi que les intervals
         //$aAllEvidentRoots = $this->findEvidentRootByInterval(-1, 6, -11, 6, -10, 10);
+        $oEm = $this->getDoctrine()->getManager();
+        $aPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")->findAll();
+
+        foreach ($aPolynome as $oPolynome)
+        {
+            $oPolynome->setConcatFormByCoefficients();
+        }
+
 
         return array(
-            //'aAllEvidentRoots' => $aAllEvidentRoots['displayResult'],
-            //'evidentRoots' => $aAllEvidentRoots['roots'],
+            'aPolynomes' => $aPolynome,
         );
     }
 
@@ -351,7 +358,6 @@ class PolynomeController extends Controller
         if ($oResquest->isXmlHttpRequest()) {
 
             $oEm = $this->getDoctrine()->getManager();
-
             // Recuperation des données de la requete ajax
             $polyname = $oResquest->request->get('polyname');
             $x3 = $oResquest->request->get('x3');
@@ -417,7 +423,6 @@ class PolynomeController extends Controller
         {
             $iResult += $iCoefficient;
         }
-
         return $iResult;
     }
 
@@ -427,9 +432,70 @@ class PolynomeController extends Controller
     private function isEvidentRoot($iResult)
     {
         if (0 == $iResult)
-        {
-            return true;
-        }
+    {
+        return true;
+    }
         return false;
     }
+
+    /**
+     * Ajoute la nouvelle ligne ajouté a la liste des polynomes.
+     * Persiste les données en base et et retourne le script de la vue pour l'insertion dans la grille.
+     *
+     * @Route("/ajax/polynome/savedata/", name="save_data")
+     * @Method("PUT")
+     */
+    public function savePolynomeRaw(Request $oResquest)
+    {
+        $iResult = 0;
+        var_dump($oResquest->request);die;
+        if ($oResquest->isXmlHttpRequest()) {
+
+            $oEm = $this->getDoctrine()->getManager();
+
+            // Recuperation des données de la requete ajax
+            $polyname = $oResquest->request->get('polyname');
+            $x3 = $oResquest->request->get('x3');
+            $x2 = $oResquest->request->get('x2');
+            $x1 = $oResquest->request->get('x1');
+            $x0 = $oResquest->request->get('x0');
+
+            $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
+                ->findOneBy(array('nom' => $polyname));
+
+            $oEm->remove($oPolynome);
+            $oEm->flush();
+        }
+        return new Response();
+    }
+
+    /**
+     * Affichage de la forme factorisée du polynome 3
+     *
+     * @Route("/ajax/polynome/savedata/", name="save_data")
+     * @Method("PUT")
+     */
+    public function displayPolynome(Request $oResquest)
+    {
+        $iResult = 0;
+        if ($oResquest->isXmlHttpRequest()) {
+
+            $oEm = $this->getDoctrine()->getManager();
+
+            // Recuperation des données de la requete ajax
+            $polyname = $oResquest->request->get('polyname');
+            $x3 = $oResquest->request->get('x3');
+            $x2 = $oResquest->request->get('x2');
+            $x1 = $oResquest->request->get('x1');
+            $x0 = $oResquest->request->get('x0');
+
+            $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
+                ->findOneBy(array('nom' => $polyname));
+
+            $oEm->remove($oPolynome);
+            $oEm->flush();
+        }
+        return new Response();
+    }
+
 }

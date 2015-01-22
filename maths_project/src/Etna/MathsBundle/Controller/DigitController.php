@@ -179,7 +179,6 @@ class DigitController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('EtnaMathsBundle:Digit')->find($id);
 
         if (!$entity) {

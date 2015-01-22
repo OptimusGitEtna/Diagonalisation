@@ -50,6 +50,13 @@ class Polynome
      */
     private $nom;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="concat_form", type="string", length=255, nullable=true)
+     */
+    private $concatForm;
+
 
     /**
      * Get id
@@ -174,5 +181,68 @@ class Polynome
     public function getResultat()
     {
         return $this->resultat;
+    }
+
+
+    /**
+     * Set concatFormByCoefficients
+     *
+     * @param string $x3, $x2, $x1, $x0
+     * @return String
+     */
+    public function setConcatFormByCoefficients()
+    {
+        // $aPolynome[0]->setConcatFormByCoefficients(-1, 2, -3, 4);
+        $sPolynome = "";
+        $iMax = count($this->getDigits())-1;
+        foreach ($this->getDigits() as $iKey => $oDigit)
+        {
+            $iIndice = $iMax - $iKey;
+            if (0 <= $oDigit->getValue())
+            {
+                if (3 != $iIndice)
+                {
+                    $sPolynome .= " + ";
+                }
+                $iCurrentValue = $oDigit->getValue();
+            }
+            else
+            {
+                $sPolynome .= " - ";
+                $iCurrentValue = $oDigit->getValue() * (-1);
+            }
+
+            if (0 == $iIndice) {
+                $sPolynome .= $iCurrentValue;
+            }
+            else {
+                $sPolynome .= $iCurrentValue."x<sup>".$iIndice."</sup>";
+            }
+        }
+        //var_dump("<PRE>",$sPolynome);die;
+        $this->concatForm = $sPolynome;
+        return $this;
+    }
+
+    /**
+     * Set concatForm
+     *
+     * @param string $concatForm
+     * @return Polynome
+     */
+    public function setConcatForm($concatForm)
+    {
+        $this->concatForm = $concatForm;
+        return $this;
+    }
+
+    /**
+     * Get concatForm
+     *
+     * @return string 
+     */
+    public function getConcatForm()
+    {
+        return $this->concatForm;
     }
 }

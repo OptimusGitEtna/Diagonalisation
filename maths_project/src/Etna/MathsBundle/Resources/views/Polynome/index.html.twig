@@ -94,8 +94,6 @@
             jQuery(document).ready(function() {
                 var active = false;
 
-
-
                     $('.edit').on('click', function(e) {
                         $(this).parent().parent().find('td').each(function(index) {
                             if (index <= 4 && active == false) {
@@ -142,16 +140,40 @@
 
                 $('.save').on('click', function(e) {
                     alert('sauvegarde de la ligne en base de données');
-
-                    $('.field').each(function(index) {
-                        if (index <= 4 && active == true) {
-                            $(this).replaceWith(($(this).val()));
+                    //console.log($('.save').closest('tr').find('td').text());
+                    var aAllRows = $(this).closest('tr').find('td');
+                    var diff = 0;
+                    var x0, x1, x2, x3, polyname;
+                    aAllRows.each(function(index)
+                    {
+                        switch (4-index)
+                        {
+                            case 0 :
+                                alert('a 0 '+$(this).text());
+                                x0 = $(this).text();
+                                break;
+                            case 1 :
+                                alert('a 1 '+$(this).text());
+                                x1 = $(this).text();
+                                break;
+                            case 2 :
+                                alert('a 2 '+$(this).text());
+                                x2 = $(this).text();
+                                break;
+                            case 3 :
+                                alert('a 3 '+$(this).text());
+                                x3 = $(this).text();
+                                break;
+                            case 4 :
+                                alert('a 4 '+$(this).text());
+                                polyname = $(this).text();
+                                break;
                         }
                     });
 
                     $.ajax({
-                        type: "POST",
-                        url: "{{ path('add_polynome_raw') }}",
+                        type: "PUT",
+                        url: "{{ path('save_data') }}",
                         data: { polyname: polyname, x3: x3, x2: x2, x1: x1, x0: x0 }
                     })
                     .done(function( result ) {
@@ -170,10 +192,10 @@
 
                 $('tbody').on('click', '.add',function(e) {
 
-                    var x0 = $(this).closest('tr').find('.x0 input').val();
-                    var x1 = $(this).closest('tr').find('.x3 input').val();
-                    var x2 = $(this).closest('tr').find('.x2 input').val();
-                    var x3 = $(this).closest('tr').find('.x1 input').val();
+                    var x3 = $(this).closest('tr').find('.x0 input').val();
+                    var x0 = $(this).closest('tr').find('.x3 input').val();
+                    var x1 = $(this).closest('tr').find('.x2 input').val();
+                    var x2 = $(this).closest('tr').find('.x1 input').val();
                     var polyname = $(this).closest('tr').find('.polyname').val();
 
                     console.log('check les results:'+x3+''+x2+''+x1+''+x0+''+polyname);

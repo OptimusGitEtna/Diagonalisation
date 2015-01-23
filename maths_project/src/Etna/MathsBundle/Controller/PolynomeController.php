@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PolynomeController extends Controller
 {
+    const DISPLAY_RESULT_BY_DEFAULT = "Appuyer sur la touche \" = \"";
+    const INTERVAL_MAX = 10;
+    const INTERVAL_MIN = -10;
 
     /**
      * Liste les polynomes et calcul les racines entieres de chacuns (Phase 1).
@@ -36,7 +39,7 @@ class PolynomeController extends Controller
         // Itinialisation provisoire des resultats.
         foreach($entities as $entity)
         {
-            $entity->setResultat("Appuyer sur la touche \" = \"");
+            $entity->setResultat(PolynomeController::DISPLAY_RESULT_BY_DEFAULT);
         }
 
         return array(
@@ -53,8 +56,6 @@ class PolynomeController extends Controller
      */
     public function factorisationIndexAction()
     {
-        // TODO rendre variable les coefficients, l'inconnue ainsi que les intervals
-        //$aAllEvidentRoots = $this->findEvidentRootByInterval(-1, 6, -11, 6, -10, 10);
         $oEm = $this->getDoctrine()->getManager();
         $aPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")->findAll();
 
@@ -62,7 +63,6 @@ class PolynomeController extends Controller
         {
             $oPolynome->setConcatFormByCoefficients();
         }
-
 
         return array(
             'aPolynomes' => $aPolynome,
@@ -294,11 +294,15 @@ class PolynomeController extends Controller
             $x1 = $oResquest->request->get('x1');
             $x0 = $oResquest->request->get('x0');
 
-            $aAllEvidentRoots = $this->findEvidentRootByInterval($x3, $x2, $x1, $x0, -10, 10);
+            $aAllEvidentRoots = $this->findEvidentRootByInterval($x3, $x2, $x1, $x0,
+                                       PolynomeController::INTERVAL_MIN, PolynomeController::INTERVAL_MAX);
+
             $iResult = $aAllEvidentRoots['roots'];
         }
         return new Response($iResult);
     }
+
+
 
     /**
      * Ajoute la nouvelle ligne ajouté a la liste des polynomes.
@@ -376,6 +380,7 @@ class PolynomeController extends Controller
 
     /*
      * Retourne les racines évidentes dans un interval valeur définit en parametres.
+     * Retourne false si le tableau est vide.
      */
     private function findEvidentRootByInterval($a, $b, $c, $d, $iMin, $iMax)
     {
@@ -391,22 +396,21 @@ class PolynomeController extends Controller
             $sInterval = " { $iMin, $iMax }";
             $aResultChecked['roots'] = $sRoots;
         }
-        //var_dump($aResultChecked);
+
         return $aResultChecked;
     }
 
     /*
-     * Methode retournant le ou les racines évidentes d'un polynome.
+     * Methode retournant true si l'attribut $x est racine évidente du polynome. (isEvidentRoot)
      */
     private function findEvidenceRoot($a, $b, $c, $d, $x)
     {
         $aPolynome = array();
         $aResult = null;
-        $aPolynome ['degre3'] = $a * $x ** 3;
-        $aPolynome ['degre2'] = $b * $x ** 2;
-        $aPolynome ['degre1'] = $c * $x ** 1;
+        $aPolynome ['degre3'] = $a * pow($x, 3); // $a ** $b => fait pété la console symfony.
+        $aPolynome ['degre2'] = $b * pow($x, 2);
+        $aPolynome ['degre1'] = $c * pow($x, 1);
         $aPolynome ['degre0'] = $d;
-        //var_dump($aPolynome);
         $iResult = $this->calculatingPolynome($aPolynome);
         $bResult = $this->isEvidentRoot($iResult);
 
@@ -423,6 +427,7 @@ class PolynomeController extends Controller
         {
             $iResult += $iCoefficient;
         }
+
         return $iResult;
     }
 
@@ -436,6 +441,82 @@ class PolynomeController extends Controller
         return true;
     }
         return false;
+    }
+
+    /**
+     * Détermine la forme factorisée du polynome
+     *
+     * @Route("/ajax/polynome/factorisation/", name="show_polynome_factor")
+     * @Method("POST")
+     */
+    public function displayPolynomeFactorisedInAjax(Request $oResquest)
+    {
+        $iResult = 0;
+        if ($oResquest->isXmlHttpRequest())
+        {
+            // racines entieres
+            // Methode de calcul pour determiner les racines d'un polynome 2.
+            $iId = $oResquest->request->get('iId');
+            // TODO lbrau poursuivre le taf
+            $aRoots = $this->findEvidentRootByIntervalById($iId, PolynomeController::INTERVAL_MIN, PolynomeController::INTERVAL_MAX);
+            $sPolyFactSerialised = $this->defineFactoriseForm($aRoots);
+        }
+
+        return new Response("(X - x<sub>1</sub>)Q(x) ".$sPolyFactSerialised." racines trouvées" );
+    }
+
+    /*
+     * Retourne les racines évidentes dans un interval valeur définit en parametres.
+     * Retourne false si le tableau est vide.
+     */
+    private function findEvidentRootByIntervalById($iPolynomeId, $iMin, $iMax)
+    {
+        $oEm = $this->getDoctrine()->getManager();
+        $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
+            ->findBy(array('id' => $iPolynomeId));
+        $this->findEvidentRootByIntervalByObject($oPolynome);
+        return $aResultChecked;
+    }
+
+    private function findEvidentRootByIntervalByObject($oPolynome, $iMin, $iMax)
+    {
+        var_dump("coucou toi");
+    }
+
+    /*
+     * Détermine la forme factorisée du polynome
+     */
+    private function defineFactoriseForm($aRoots)
+    {
+        $aRoots = explode(" ",$aRoots['roots']);
+        // TODO les affectations de $retour sont la pour faire passer les tests avant edition de la methode.
+        switch (count($aRoots))
+        {
+            case 3:
+                $nbRoots = 3;
+                $retour = $nbRoots;
+                break;
+            case 2:
+                $nbRoots = 2;
+                $retour = $nbRoots;
+                break;
+            case 1:
+                $nbRoots = 1;
+                $retour = $nbRoots;
+                break;
+            case 0:
+                // pas de forme
+                $nbRoots = 0;
+                $retour = 0;
+                break;
+            default:
+                // racines ne correspond pas au polynome.
+                $retour = count($aRoots);;
+        }
+
+        // TODO ici appel de la methode pour serialisé la forme factorisé du polynome 3.
+
+       return $retour;
     }
 
     /**
@@ -468,34 +549,4 @@ class PolynomeController extends Controller
         }
         return new Response();
     }
-
-    /**
-     * Affichage de la forme factorisée du polynome 3
-     *
-     * @Route("/ajax/polynome/savedata/", name="save_data")
-     * @Method("PUT")
-     */
-    public function displayPolynome(Request $oResquest)
-    {
-        $iResult = 0;
-        if ($oResquest->isXmlHttpRequest()) {
-
-            $oEm = $this->getDoctrine()->getManager();
-
-            // Recuperation des données de la requete ajax
-            $polyname = $oResquest->request->get('polyname');
-            $x3 = $oResquest->request->get('x3');
-            $x2 = $oResquest->request->get('x2');
-            $x1 = $oResquest->request->get('x1');
-            $x0 = $oResquest->request->get('x0');
-
-            $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
-                ->findOneBy(array('nom' => $polyname));
-
-            $oEm->remove($oPolynome);
-            $oEm->flush();
-        }
-        return new Response();
-    }
-
 }

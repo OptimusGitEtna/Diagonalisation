@@ -118,6 +118,7 @@ class Polynome
     {
         return $this->getNom();
     }
+
     /**
      * Constructor
      */
@@ -244,5 +245,17 @@ class Polynome
     public function getConcatForm()
     {
         return $this->concatForm;
+    }
+
+    /**
+     * Set concatFormByCoefficients
+     *
+     * @param string $x3, $x2, $x1, $x0
+     * @return String
+     */
+    public function getConcatFormByCoefficients($oEm, $iId)
+    {
+
+        return $sPolynomeFactorised;
     }
 }

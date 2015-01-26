@@ -391,10 +391,14 @@ class PolynomeController extends Controller
             $aResultChecked['displayResult'][$i]['isEvidentRoot'] = $this->findEvidenceRoot($a, $b, $c, $d, $i);
             if (true === $this->findEvidenceRoot($a, $b, $c, $d, $i))
             {
-                $sRoots .= "[$i] ";
+                $sRoots .= "[$i]";
+                if ("" !== $i + 1) {
+                    $sRoots .= ", "; // TODO la virgule ne doit pas s'ajouter pour le dernier coeff.
+                }
             }
             $sInterval = " { $iMin, $iMax }";
             $aResultChecked['roots'] = $sRoots;
+
         }
 
         return $aResultChecked;
@@ -418,7 +422,7 @@ class PolynomeController extends Controller
     }
 
     /*
-     * Calcul du polynome
+     * Calcul du polynome (additionne toute les parties du polynome).
      */
     private function calculatingPolynome($aPolynome)
     {
@@ -458,11 +462,12 @@ class PolynomeController extends Controller
             // Methode de calcul pour determiner les racines d'un polynome 2.
             $iId = $oResquest->request->get('iId');
             // TODO lbrau poursuivre le taf
+            // Renvoi les racines evidentes du polynome passé en id.
             $aRoots = $this->findEvidentRootByIntervalById($iId, PolynomeController::INTERVAL_MIN, PolynomeController::INTERVAL_MAX);
             $sPolyFactSerialised = $this->defineFactoriseForm($aRoots);
         }
 
-        return new Response("(X - x<sub>1</sub>)Q(x) ".$sPolyFactSerialised." racines trouvées" );
+        return new Response($sPolyFactSerialised);
     }
 
     /*
@@ -473,14 +478,35 @@ class PolynomeController extends Controller
     {
         $oEm = $this->getDoctrine()->getManager();
         $oPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
-            ->findBy(array('id' => $iPolynomeId));
-        $this->findEvidentRootByIntervalByObject($oPolynome);
+            ->findOneBy(array('id' => $iPolynomeId));
+        $aResultChecked = $this->findEvidentRootByIntervalByObject($oPolynome, $iMin, $iMax);
+
         return $aResultChecked;
     }
 
     private function findEvidentRootByIntervalByObject($oPolynome, $iMin, $iMax)
     {
-        var_dump("coucou toi");
+        // Recuperation de tout les digits du polynomes.
+        $aDigits = $oPolynome->getDigits();
+
+        $i = 97; //Initialisation de la lettre 'a' en ascii.
+        foreach ($aDigits as $oDigits) {
+
+            $cCoeff = chr($i);
+            $$cCoeff = $oDigits->getValue();
+            $i++;
+        }
+
+        $iResult = $this->findEvidentRootByInterval($a, $b, $c, $d, $iMin, $iMax);
+        $aAllRoots = explode(",",$iResult['roots']);
+        preg_match_all("/\[(-?[0-9]+)?\]/", $iResult['roots'], $matches);
+        $aAllRootsInt = array();
+        foreach ($matches[1] as $iRoots) {
+
+            $aAllRootsInt[] = (int)$iRoots;
+        }
+
+        return $aAllRootsInt;
     }
 
     /*
@@ -488,12 +514,26 @@ class PolynomeController extends Controller
      */
     private function defineFactoriseForm($aRoots)
     {
-        $aRoots = explode(" ",$aRoots['roots']);
+        //$aRoots = explode(" ",$aRoots['roots']);
         // TODO les affectations de $retour sont la pour faire passer les tests avant edition de la methode.
+        $sFormRender = "";
+        foreach ($aRoots as $iRoots) {
+
+            // Gestion du signe du coefficient.
+            $signe = "-";
+            if ($iRoots < 0) {
+                $signe = "+";
+                $iRoots = $iRoots * (-1);
+            }
+            $sFormRender .= "(X ".$signe." ".$iRoots.")";
+        }
+        $sFormRender .= "Q(x)";
+
         switch (count($aRoots))
         {
             case 3:
                 $nbRoots = 3;
+
                 $retour = $nbRoots;
                 break;
             case 2:
@@ -515,8 +555,7 @@ class PolynomeController extends Controller
         }
 
         // TODO ici appel de la methode pour serialisé la forme factorisé du polynome 3.
-
-       return $retour;
+       return $sFormRender;
     }
 
     /**

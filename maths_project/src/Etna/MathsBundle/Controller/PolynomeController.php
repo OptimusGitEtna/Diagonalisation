@@ -393,7 +393,7 @@ class PolynomeController extends Controller
             {
                 $sRoots .= "[$i]";
                 if ("" !== $i + 1) {
-                    $sRoots .= ", "; // TODO la virgule ne doit pas s'ajouter pour le dernier coeff.
+                    //$sRoots .= ", "; // TODO la virgule ne doit pas s'ajouter pour le dernier coeff.
                 }
             }
             $sInterval = " { $iMin, $iMax }";
@@ -525,9 +525,16 @@ class PolynomeController extends Controller
                 $signe = "+";
                 $iRoots = $iRoots * (-1);
             }
-            $sFormRender .= "(X ".$signe." ".$iRoots.")";
+
+            $sFormRender .= "(x ".$signe." ".$iRoots.")";
         }
-        $sFormRender .= "Q(x)";
+        if (count($aRoots) < 3 && count($aRoots) > 0)  {
+            // TODO appel de la methode pour calculer Q(x).
+            $sFormRender .= "Q(x)";
+        }
+        elseif (count($aRoots) ==  0) {
+            $sFormRender = "Aucune";
+        }
 
         switch (count($aRoots))
         {

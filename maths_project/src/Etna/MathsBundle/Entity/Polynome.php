@@ -184,7 +184,6 @@ class Polynome
         return $this->resultat;
     }
 
-
     /**
      * Set concatFormByCoefficients
      *
@@ -193,7 +192,6 @@ class Polynome
      */
     public function setConcatFormByCoefficients()
     {
-        // $aPolynome[0]->setConcatFormByCoefficients(-1, 2, -3, 4);
         $sPolynome = "";
         $iMax = count($this->getDigits())-1;
         foreach ($this->getDigits() as $iKey => $oDigit)

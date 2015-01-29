@@ -22,6 +22,7 @@ class PolynomeController extends Controller
     const DISPLAY_RESULT_BY_DEFAULT = "Appuyer sur la touche \" = \"";
     const INTERVAL_MAX = 10;
     const INTERVAL_MIN = -10;
+    const NO_RESULT = "Aucune racine";
 
     /**
      * Liste les polynomes et calcul les racines entieres de chacuns (Phase 1).
@@ -398,7 +399,6 @@ class PolynomeController extends Controller
             }
             $sInterval = " { $iMin, $iMax }";
             $aResultChecked['roots'] = $sRoots;
-
         }
 
         return $aResultChecked;
@@ -464,7 +464,7 @@ class PolynomeController extends Controller
             // TODO lbrau poursuivre le taf
             // Renvoi les racines evidentes du polynome passé en id.
             $aRoots = $this->findEvidentRootByIntervalById($iId, PolynomeController::INTERVAL_MIN, PolynomeController::INTERVAL_MAX);
-            $sPolyFactSerialised = $this->defineFactoriseForm($aRoots);
+            $sPolyFactSerialised = $this->defineFactoriseForm($aRoots, $iId);
         }
 
         return new Response($sPolyFactSerialised);
@@ -512,10 +512,11 @@ class PolynomeController extends Controller
     /*
      * Détermine la forme factorisée du polynome
      */
-    private function defineFactoriseForm($aRoots)
+    private function defineFactoriseForm($aRoots, $iIdPolynome)
     {
-        //$aRoots = explode(" ",$aRoots['roots']);
-        // TODO les affectations de $retour sont la pour faire passer les tests avant edition de la methode.
+        $oEm = $this->getDoctrine()->getManager();
+        $oCurrentPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
+                                ->findOneBy(array("id" => $iIdPolynome));
         $sFormRender = "";
         foreach ($aRoots as $iRoots) {
 
@@ -525,22 +526,22 @@ class PolynomeController extends Controller
                 $signe = "+";
                 $iRoots = $iRoots * (-1);
             }
-
             $sFormRender .= "(x ".$signe." ".$iRoots.")";
         }
+
         if (count($aRoots) < 3 && count($aRoots) > 0)  {
             // TODO appel de la methode pour calculer Q(x).
-            $sFormRender .= "Q(x)";
+            $sFormRender .= $this->findQx($oCurrentPolynome, $aRoots);
+            //$sFormRender .= "Q(x)";
         }
         elseif (count($aRoots) ==  0) {
-            $sFormRender = "Aucune";
+            $sFormRender = PolynomeController::NO_RESULT;
         }
 
         switch (count($aRoots))
         {
             case 3:
                 $nbRoots = 3;
-
                 $retour = $nbRoots;
                 break;
             case 2:
@@ -561,8 +562,54 @@ class PolynomeController extends Controller
                 $retour = count($aRoots);;
         }
 
-        // TODO ici appel de la methode pour serialisé la forme factorisé du polynome 3.
+        // TODO ici appel de la methode pour serialiser la forme factorisé du polynome 3.
        return $sFormRender;
+    }
+
+    /*
+     * Renvoi la forme factoriser Q(x) du polynome P(x)
+     */
+    private function findQx($oPolynome, $aRoots)
+    {
+        // d doit etre egale aux produit de toute les racines.
+        // b doit etre égale a la somme de toutes les racines.
+
+        $aFirstValidationRoots  = $this->getFactorisationFormWithD($oPolynome, $aRoots);
+        $aSecondValidationRoots = $this->findFactorisationFormWithB($oPolynome, $aFirstValidationRoots);
+    }
+
+    /*
+     * Renvoi les valeurs confirmant la regle suivante : d = x1 * x2 * x3
+     * Necessite la validation de la deuxieme regle (findFactorisationFormWithB) pour etre accepté comme racine.
+     */
+    private function getFactorisationFormWithD($oPolynome, $aRoots) {
+
+        // Recuperation du coefficient bx2 du polynome P(x)
+        $sCoefficientContainer = "";
+        $iOriginAscii = 97;
+        foreach ($oPolynome->getDigits() as $oDigit) {
+            $sCoefficientContainer  = chr($iOriginAscii);
+            // TODO générer la suite du polynome Q(x)
+            //$$sCoefficientContainer =
+            $iOriginAscii++;
+        }
+
+        $r1 = $aRoots[0];
+        if (isset($aRoots[1])) {
+            $r2 = $aRoots[1];
+        }
+        //$r3 = $b - ($r1 + $r2);
+        var_dump($aRoots);
+        //polynomeQx =
+    }
+
+    /*
+     * Renvoi les valeurs confirmant la regle suivante : b = x1 + x2 + x3
+     */
+    private function findFactorisationFormWithB($aPolynome, $aFirstValidationRoots) {
+
+        // TODO faire une methode RECURSIVE pour la tester la validation.
+
     }
 
     /**
@@ -575,7 +622,7 @@ class PolynomeController extends Controller
     public function savePolynomeRaw(Request $oResquest)
     {
         $iResult = 0;
-        var_dump($oResquest->request);die;
+        //var_dump($oResquest->request);die;
         if ($oResquest->isXmlHttpRequest()) {
 
             $oEm = $this->getDoctrine()->getManager();

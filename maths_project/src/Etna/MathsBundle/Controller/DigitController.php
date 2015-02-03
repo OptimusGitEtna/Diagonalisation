@@ -35,6 +35,7 @@ class DigitController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Digit entity.
      *

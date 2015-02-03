@@ -441,9 +441,7 @@ class PolynomeController extends Controller
     private function isEvidentRoot($iResult)
     {
         if (0 == $iResult)
-    {
-        return true;
-    }
+            return true;
         return false;
     }
 
@@ -531,8 +529,7 @@ class PolynomeController extends Controller
 
         if (count($aRoots) < 3 && count($aRoots) > 0)  {
             // TODO appel de la methode pour calculer Q(x).
-            $sFormRender .= $this->findQx($oCurrentPolynome, $aRoots);
-            //$sFormRender .= "Q(x)";
+            $sFormRender = $this->findQx($oCurrentPolynome, $aRoots);
         }
         elseif (count($aRoots) ==  0) {
             $sFormRender = PolynomeController::NO_RESULT;
@@ -559,23 +556,72 @@ class PolynomeController extends Controller
                 break;
             default:
                 // racines ne correspond pas au polynome.
-                $retour = count($aRoots);;
+                $retour = count($aRoots);
         }
 
         // TODO ici appel de la methode pour serialiser la forme factorisé du polynome 3.
-       return $sFormRender;
+       return $sFormRender." avec ".$nbRoots." racines";
     }
 
     /*
      * Renvoi la forme factoriser Q(x) du polynome P(x)
+     * Lorsqu'on recupere les digits du polynome, ceux ci ont des indexes inversés.
+     * Exemple : aDigits[0] = a, aDigits[1] = b, ...
      */
     private function findQx($oPolynome, $aRoots)
     {
-        // d doit etre egale aux produit de toute les racines.
-        // b doit etre égale a la somme de toutes les racines.
+        
+        // Initialisation dynamique des coefficient A,B,C et a,b,c.
+        // Respectivement le polynome puissance 3 et puissance 2 (apres factorisation).
+        $iAsciiIndex     = 65; // valeur A
+        $iAsciiIndexmini = 97; // valeur a
+        $iRacine = $this->getFirstPositiveRoots($aRoots);
+        foreach ($oPolynome->getDigits() as $iKey => $oDigit) {
+            $svarBigName   = chr($iAsciiIndex);
+            $svarTinyName  = chr($iAsciiIndexmini);
+            $$svarBigName  = $oDigit->getValue();
+            
+            if ($svarTinyName != 'a') {
+                $$svarTinyName = $$svarBigName + $iTinyVarValuePrec * $iRacine;
+            }
+            else{
+                $$svarTinyName = $$svarBigName;
+            }
 
-        $aFirstValidationRoots  = $this->getFactorisationFormWithD($oPolynome, $aRoots);
-        $aSecondValidationRoots = $this->findFactorisationFormWithB($oPolynome, $aFirstValidationRoots);
+            $iAsciiIndex++;
+            $iAsciiIndexmini++;
+            $iTinyVarValuePrec = $$svarTinyName;
+        }
+        
+        $sFirstFactor = "(x - $iRacine)";
+        $sSecondFactor = "(".$a."x<sup>2</sup> + ".$b."x + $c)";
+        $sCompleteForm = $sFirstFactor.$sSecondFactor;
+        
+        return $sCompleteForm;
+        
+        
+        
+//        $this->PolynomeQxFormattingToString();
+//        $aFirstValidationRoots  = $this->getFactorisationFormWithD($oPolynome, $aRoots);
+//        $aSecondValidationRoots = $this->findFactorisationFormWithB($oPolynome, $aFirstValidationRoots);
+    }
+    
+    /*
+     * Renvoi la premiere racine positive parmis toutes celles trouvées.
+     */
+    private function getFirstPositiveRoots($aRoots) {
+        
+        $iRender = $aRoots[0];
+        foreach($aRoots as $iKey => $iRoot) {
+            
+            if ($iKey > 0 && $iRoot > 0) {
+                
+                $iRender = $iRoot;
+                break;
+            }
+        }
+        
+        return $iRender;
     }
 
     /*
@@ -583,32 +629,73 @@ class PolynomeController extends Controller
      * Necessite la validation de la deuxieme regle (findFactorisationFormWithB) pour etre accepté comme racine.
      */
     private function getFactorisationFormWithD($oPolynome, $aRoots) {
-
         // Recuperation du coefficient bx2 du polynome P(x)
         $sCoefficientContainer = "";
         $iOriginAscii = 97;
         foreach ($oPolynome->getDigits() as $oDigit) {
             $sCoefficientContainer  = chr($iOriginAscii);
-            // TODO générer la suite du polynome Q(x)
-            //$$sCoefficientContainer =
             $iOriginAscii++;
         }
 
+        // Factorisation avec uniquement une ou deux racines eniteres.
         $r1 = $aRoots[0];
         if (isset($aRoots[1])) {
             $r2 = $aRoots[1];
         }
+
+        // TODO appel de methode pour déterminer la racine entiere du polynome Q(x).
+        $sQx = $this->findQxWithRoots($oPolynome, $aRoots);
         //$r3 = $b - ($r1 + $r2);
-        var_dump($aRoots);
-        //polynomeQx =
+    }
+    
+    /*
+     * Renvoi le polynome sous la forme d'une chaine de caractere.
+     * L'index du tableau sera egal au degré de puissance du polynome
+     * exemple : ax2 + bx + c aura pour valeur $aQx[2] = a
+     */
+    private function PolynomeQxFormattingToString($aQx)
+    {
+        // TODO finir les cas de  gestions.
+        // forme ax2 + bx + c
+        // Données de tests
+        //$aQx = array(3,-2,1); // tableau fournit en params.
+        $sQx = "";
+        $itaille = count($aQx);
+        for ($iDegre = ($itaille -1); $iDegre >= 0; --$iDegre)
+        {
+            if ($aQx[$iDegre] == 0) {
+                continue;
+            }
+            if ($iDegre == 1) {
+                $sExposant = "x ";
+            }
+            else if ($iDegre == 0) {
+                $sExposant = "";
+            }
+            else {
+                $sExposant = "x<sup>".$iDegre."</sup> ";
+            }
+            // retire le signe + du premier element du polynome.
+            $sSigne = "";
+            if ($iDegre != $itaille-1) {
+                $sSigne = " + ";
+            }
+            if ($aQx[$iDegre] < 0) {
+                $sSigne = " - ";
+                $aQx[$iDegre] = $aQx[$iDegre] * (-1);
+            }
+            
+            $sQx .= $sSigne.$aQx[$iDegre].$sExposant;
+        }
+        
+        return $sQx; 
     }
 
     /*
-     * Renvoi les valeurs confirmant la regle suivante : b = x1 + x2 + x3
+     * Renvoi le polynome Q(x) en parametre avec les racines entirères existantes.
      */
-    private function findFactorisationFormWithB($aPolynome, $aFirstValidationRoots) {
-
-        // TODO faire une methode RECURSIVE pour la tester la validation.
+    public function findQxWithRoots($oPolynome, $aRoots)
+    {
 
     }
 

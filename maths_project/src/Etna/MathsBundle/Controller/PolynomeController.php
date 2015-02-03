@@ -559,8 +559,10 @@ class PolynomeController extends Controller
                 $retour = count($aRoots);
         }
 
-        // TODO ici appel de la methode pour serialiser la forme factorisé du polynome 3.
-       return $sFormRender." <br><i class=\"text-muted\">avec ".$nbRoots." racines</i>";
+        // Gestion des pluriels
+        $pl = ($nbRoots > 1 ? "s" : "");
+        
+       return $sFormRender." <br><i class=\"text-muted\">avec ".$nbRoots." racine$pl trouvée$pl</i>";
     }
 
     /*

@@ -560,7 +560,7 @@ class PolynomeController extends Controller
         }
 
         // TODO ici appel de la methode pour serialiser la forme factorisé du polynome 3.
-       return $sFormRender." avec ".$nbRoots." racines";
+       return $sFormRender." <br><i class=\"text-muted\">avec ".$nbRoots." racines</i>";
     }
 
     /*
@@ -570,7 +570,8 @@ class PolynomeController extends Controller
      */
     private function findQx($oPolynome, $aRoots)
     {
-        
+        // TODO Le factorisation fonctionne mais il serait mieux pour 2 racines de faire une forme (x-R1)(x-R2)(Qx)
+        // Actuellement c'est (x-R)(Qx)
         // Initialisation dynamique des coefficient A,B,C et a,b,c.
         // Respectivement le polynome puissance 3 et puissance 2 (apres factorisation).
         $iAsciiIndex     = 65; // valeur A
@@ -595,12 +596,29 @@ class PolynomeController extends Controller
         
         $sFirstFactor = "(x - $iRacine)";
         $sSecondFactor = "(".$a."x<sup>2</sup> + ".$b."x + $c)";
+        
+        // Gestion des cas ou il existe 2 racines entieres.
+        if (count($aRoots) == 2) {
+            
+            $tab = array("$iRacine");
+            $signe = " - ";
+            $iRacineRest = array_diff($aRoots, $tab);
+            if ($iRacineRest[0] < 0) {
+                $iRacineRest[0] = $iRacineRest[0] * (-1);
+                $signe = " + ";
+            }
+            
+            $sSecondFactor = "(x $signe $iRacineRest[0])(".$b."x + $c)";
+        }
+        
+        
+        
         $sCompleteForm = $sFirstFactor.$sSecondFactor;
         
         return $sCompleteForm;
         
         
-        
+        // TODO methode obsceletes, voir si on peut encore en tirer quelque chose. :)
 //        $this->PolynomeQxFormattingToString();
 //        $aFirstValidationRoots  = $this->getFactorisationFormWithD($oPolynome, $aRoots);
 //        $aSecondValidationRoots = $this->findFactorisationFormWithB($oPolynome, $aFirstValidationRoots);

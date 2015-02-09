@@ -47,6 +47,55 @@ class PolynomeController extends Controller
             'entities' => $entities,
         );
     }
+    
+    /**
+     * Liste les polynomes et calcul les racines entieres de chacuns (Phase 1).
+     *
+     * @Route("/polycaract", name="polynome_caracteristique")
+     * @Method("GET")
+     * @Template("EtnaMathsBundle:polynome_caracteristique:polynome_caract_index.html.twig")
+     */
+    public function indexPolynomeCaracteristiqueAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('EtnaMathsBundle:Polynome')->findAll();
+        $aAllPolynomeResult = $this->calculPolynome($entities);
+
+        // Itinialisation provisoire des resultats.
+        foreach($entities as $entity)
+        {
+            $entity->setResultat(PolynomeController::DISPLAY_RESULT_BY_DEFAULT);
+        }
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * Initialise une matrice carré de degré 3
+     *
+     * @Route("/initialisation/matrice", name="init_matrice")
+     * @Method("POST")
+     */
+    public function initMatriceCarre3Ajax(Request $oResquest) {
+
+        $aCoefficients = $oResquest->request->get('aCoefficient');
+        if ($oResquest->isXmlHttpRequest()) {
+            $iKey = 1;
+            foreach ($aCoefficients as $sCoefficient) {
+                // Creation des variables dynamiques a la volée (pattern "$a1,$a2,$b1,$b2,...").
+                $scoeffName = 'a'.$iKey;
+                $$scoeffName = $sCoefficient;
+                $iKey++;
+            }
+            
+            echo $a1." # ".$a3." # ".$a5;
+        }
+        $iResult = "fake";
+        return new Response($iResult);
+    }
+
 
     /**
      * Affiche la liste des polynomes et détermine leur forme factorisé.

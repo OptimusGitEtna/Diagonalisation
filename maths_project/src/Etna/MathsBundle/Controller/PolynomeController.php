@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Etna\MathsBundle\Entity\Polynome;
 use Etna\MathsBundle\Form\PolynomeType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Polynome controller.
@@ -80,22 +81,74 @@ class PolynomeController extends Controller
      */
     public function initMatriceCarre3Ajax(Request $oResquest) {
 
-        $aCoefficients = $oResquest->request->get('aCoefficient');
+        $aCoefficientsFromAjax = $oResquest->request->get('aCoefficient');
+        
         if ($oResquest->isXmlHttpRequest()) {
-            $iKey = 1;
-            foreach ($aCoefficients as $sCoefficient) {
-                // Creation des variables dynamiques a la volée (pattern "$a1,$a2,$b1,$b2,...").
-                $scoeffName = 'a'.$iKey;
-                $$scoeffName = $sCoefficient;
-                $iKey++;
-            }
             
-            echo $a1." # ".$a3." # ".$a5;
+            $aCoefficients = $this->makeMatriceWithArray($aCoefficientsFromAjax);
+            $sResult = $this->calculPolynomeCaracteristique($aCoefficients);
+            $oResponse = new JsonResponse();
+            $oResponse->setData($sResult);
+            return $oResponse;
         }
-        $iResult = "fake";
-        return new Response($iResult);
     }
+    
+    private function calculPolynomeCaracteristique($aCoefficients) 
+    {
+        // Calcul trace de la matrice A ok!
+        // Calcul de la matrice F1
+        // Modelisation matrice I3
+        // Calcul de la trace F1         ok!
+        // Calcul de la matrice F2
+        // Calcul de la trace matrice F2. ok!
+        $iTrace = $this->findTrace($aCoefficients);
+        // TODO retirer le setting de test pour $sPolynomeCaractSerialize
+        $sPolynomeCaractSerialize = $iTrace;
+        
+        return $sPolynomeCaractSerialize;
+    }
+    
+    /*
+     * Retourne le produit de 2 matrices.
+     */
+    private function multiplyMatrix($aPilluleBleu, $aPilluleRouge)
+    {
+        
+    }
+    /*
+     * Renvoi la trace de la matrice en parametre.
+     */
+    private function findTrace($aMatrice)
+    {
+        $iTrace = 0;
+        foreach ($aMatrice as $iKey => $iElement) {
+            
+            $iTrace += (int) $aMatrice[$iKey][$iKey];
+        }
+        
+        return $iTrace;
+    }
+    
+    private function makeMatriceWithArray($aCoefficientsSource) 
+    {
+        $col = 0;
+        $iCompteur = 1;
+        $row = 0;
+        $aCoefficients = array(array());
+        foreach ($aCoefficientsSource as $i => $sCoefficient) {
 
+            if ($iCompteur > 3) {
+                $iCompteur = 1;
+                $col = 0;
+                $row++;
+            }
+            $aCoefficients[$row][$col] = $sCoefficient;
+            $col++;
+            $iCompteur++;
+        }
+            
+        return $aCoefficients;
+    }
 
     /**
      * Affiche la liste des polynomes et détermine leur forme factorisé.

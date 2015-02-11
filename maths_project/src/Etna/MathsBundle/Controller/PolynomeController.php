@@ -95,15 +95,24 @@ class PolynomeController extends Controller
     
     private function calculPolynomeCaracteristique($aCoefficients) 
     {
-        // Calcul trace de la matrice A ok!
-        // Calcul de la matrice F1
-        // Modelisation matrice I3
-        // Calcul de la trace F1         ok!
+        // Calcul trace de la matrice A                   ok!
+        // Calcul de la matrice F1                        ---
+        //     - Produit matriciel                        ok!
+        //     - Produit de la trace d'une matrice par I3
+        //     - Soustraction de 2 matrices.
+        // Modelisation matrice I3                        ---
+        // Calcul de la trace F1                          ok!
         // Calcul de la matrice F2
-        // Calcul de la trace matrice F2. ok!
+        // Calcul de la trace matrice F2.                 ok!
+        
         $iTrace = $this->findTrace($aCoefficients);
         // TODO retirer le setting de test pour $sPolynomeCaractSerialize
         $sPolynomeCaractSerialize = $iTrace;
+        
+        $aPilluleBleu  = $aCoefficients;
+        $aPilluleRouge = $aCoefficients;
+        
+        $sPolynomeCaractSerialize = $this->multiplyMatrix($aPilluleBleu, $aPilluleRouge);
         
         return $sPolynomeCaractSerialize;
     }
@@ -113,8 +122,55 @@ class PolynomeController extends Controller
      */
     private function multiplyMatrix($aPilluleBleu, $aPilluleRouge)
     {
+        $aMatriceResult = array(array());
         
+        $aMatriceResult[0][0] = $aPilluleBleu[0][0] * $aPilluleRouge[0][0]
+                                    + $aPilluleBleu[0][1] * $aPilluleRouge[1][0]
+                                        + $aPilluleBleu[0][2] * $aPilluleRouge[2][0];
+        $aMatriceResult[0][1] = $aPilluleBleu[0][0] * $aPilluleRouge[0][1]
+                                    + $aPilluleBleu[0][1] * $aPilluleRouge[1][1]
+                                        + $aPilluleBleu[0][2] * $aPilluleRouge[2][1];
+        $aMatriceResult[0][2] = $aPilluleBleu[0][0] * $aPilluleRouge[0][2]
+                                    + $aPilluleBleu[0][1] * $aPilluleRouge[1][2]
+                                        + $aPilluleBleu[0][2] * $aPilluleRouge[2][2];
+        
+        $aMatriceResult[1][0] = $aPilluleBleu[1][0] * $aPilluleRouge[0][0]
+                                    + $aPilluleBleu[1][1] * $aPilluleRouge[1][0]
+                                        + $aPilluleBleu[1][2] * $aPilluleRouge[2][0];
+        $aMatriceResult[1][1] = $aPilluleBleu[1][0] * $aPilluleRouge[0][1]
+                                    + $aPilluleBleu[1][1] * $aPilluleRouge[1][1]
+                                        + $aPilluleBleu[1][2] * $aPilluleRouge[2][1];
+        $aMatriceResult[1][2] = $aPilluleBleu[1][0] * $aPilluleRouge[0][2]
+                                    + $aPilluleBleu[1][1] * $aPilluleRouge[1][2]
+                                        + $aPilluleBleu[1][2] * $aPilluleRouge[2][2];
+        
+        $aMatriceResult[2][0] = $aPilluleBleu[2][0] * $aPilluleRouge[0][0]
+                                    + $aPilluleBleu[2][1] * $aPilluleRouge[1][0]
+                                        + $aPilluleBleu[2][2] * $aPilluleRouge[2][0];
+        $aMatriceResult[2][1] = $aPilluleBleu[2][0] * $aPilluleRouge[0][1]
+                                    + $aPilluleBleu[2][1] * $aPilluleRouge[1][1]
+                                        + $aPilluleBleu[2][2] * $aPilluleRouge[2][1];
+        $aMatriceResult[2][2] = $aPilluleBleu[2][0] * $aPilluleRouge[0][2]
+                                    + $aPilluleBleu[2][1] * $aPilluleRouge[1][2]
+                                        + $aPilluleBleu[2][2] * $aPilluleRouge[2][2];
+        
+//        for ($iRaw= 0, $iCol = 0, $iAcsiiIndex = 65; $iCol < count($aPilluleBleu); ++$iCol) {
+//            
+//            $aMatriceResult[chr($iAcsiiIndex)] = $aPilluleBleu[$iRaw][$iCol] * $aPilluleRouge[$iCol][$iRaw];
+//            if ($iCol == count($aPilluleBleu)-1 && $iRaw < count($aPilluleBleu)-1) {
+//                
+//                $iRaw++;
+//                $iCol = 0;
+//            }
+//            echo "# col: $iCol, raw: $iRaw |";
+//            $iAcsiiIndex++;
+//        }
+//        echo $aMatriceResult['A']."|".$aMatriceResult['B']."|".$aMatriceResult['C'].'#'
+//                .$aMatriceResult['D']."|".$aMatriceResult['E'];"|".$aMatriceResult['F'];
+        
+        return $aMatriceResult;
     }
+    
     /*
      * Renvoi la trace de la matrice en parametre.
      */
@@ -142,6 +198,7 @@ class PolynomeController extends Controller
                 $col = 0;
                 $row++;
             }
+            
             $aCoefficients[$row][$col] = $sCoefficient;
             $col++;
             $iCompteur++;
@@ -179,14 +236,15 @@ class PolynomeController extends Controller
      */
     private function calculPolynome($aPolynome)
     {
+        
         $aPolynomeContent = array();
         if (isset($aPolynome)) {
-        foreach ($aPolynome as $oPolynome)
-        {
-            $aPolynomeContent[] = $this->container->get('etna.mathsbundle')->convertObjectToArray($oPolynome);
-        }
+            foreach ($aPolynome as $oPolynome)
+            {
+                $aPolynomeContent[] = $this->container->get('etna.mathsbundle')->convertObjectToArray($oPolynome);
+            }
 
-        return $aPolynomeContent;
+            return $aPolynomeContent;
         }
     }
 

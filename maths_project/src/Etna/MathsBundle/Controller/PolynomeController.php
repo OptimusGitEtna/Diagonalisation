@@ -95,26 +95,92 @@ class PolynomeController extends Controller
     
     private function calculPolynomeCaracteristique($aCoefficients) 
     {
+        $sPoly = "";
+
         // Calcul trace de la matrice A                   ok!
-        // Calcul de la matrice F1                        ---
-        //     - Produit matriciel                        ok!
-        //     - Produit de la trace d'une matrice par I3
-        //     - Soustraction de 2 matrices.
+        //$iTraceMatrixA = $this->findTrace($aCoefficients,2);
+        // Calcul de la matrice F1                        --- $this->findTrace($aMatrice, $iCoeff = 1)
+        //     - Produit matriciel                        ok! $this->multiplyMatrix($aPilluleBleu, $aPilluleRouge);
+        //     - Produit de la trace d'une matrice par I3 ok! $this->multiplyTraceByMatriceI($trace, $aMatrix);
+        //     - Soustraction de 2 matrices.              ok! $this->substractMatrix($aPilluleBleu, $aPilluleRouge);
         // Modelisation matrice I3                        ---
         // Calcul de la trace F1                          ok!
         // Calcul de la matrice F2
         // Calcul de la trace matrice F2.                 ok!
         
-        $iTrace = $this->findTrace($aCoefficients);
-        // TODO retirer le setting de test pour $sPolynomeCaractSerialize
-        $sPolynomeCaractSerialize = $iTrace;
+        // -X3 + tr(A)X2 + 1/2tr(F1)X + 1/3tr(F2)
         
-        $aPilluleBleu  = $aCoefficients;
-        $aPilluleRouge = $aCoefficients;
+        // A(A − tr(A)I3)
         
-        $sPolynomeCaractSerialize = $this->multiplyMatrix($aPilluleBleu, $aPilluleRouge);
+        // Gestion des calcul pour la matrice A
+        $aMatriceI[0][0] = 1;
+        $aMatriceI[0][1] = 0;
+        $aMatriceI[0][2] = 0;
+        $aMatriceI[1][0] = 0;
+        $aMatriceI[1][1] = 1;
+        $aMatriceI[1][2] = 0;
+        $aMatriceI[2][0] = 0;
+        $aMatriceI[2][1] = 0;
+        $aMatriceI[2][2] = 1;
         
+        $traceA         = $this->findTrace($aCoefficients, $iCoeff = 1);
+        $tracaAI3       = $this->multiplyTraceByMatriceI($traceA, $aMatriceI);
+        $AmoinstracaAI3 = $this->substractMatrix($aCoefficients, $tracaAI3);
+        $F1             = $this->multiplyMatrix($aCoefficients, $AmoinstracaAI3);
+        
+        // Gestion des calculs pour la matrice F1 
+        $traceF1         = $this->findTrace($F1, (1/2));
+        $tracaAI3        = $this->multiplyTraceByMatriceI($traceF1, $aMatriceI);
+        $F1moinstracaAI3 = $this->substractMatrix($F1, $tracaAI3);
+        $F2              = $this->multiplyMatrix($aCoefficients, $F1moinstracaAI3);
+        $traceF2         = $this->findTrace($F2, (1/3));
+        
+        $sPoly = "-X<sup>3</sup> + ".$traceA."X<sup>2</sup> + ".$traceF1."X + ".$traceF2;
+        $sPolynomeCaractSerialize = $sPoly;
+        // TODO resultat polynome caracteristique
         return $sPolynomeCaractSerialize;
+    }
+    
+    /*
+     * Retourne une matrice resultante d'une soustraction de deux matrices.
+     */
+    private function substractMatrix($aaBigMatrix, $amatrixToSubstract) 
+    {
+        $nbCols = count($aaBigMatrix[0]);
+        for ($i = 0; $i < $nbCols; ++$i) {
+             for ($j = 0; $j < $nbCols; ++$j) {
+           
+                $aaResult[$i][$j] = $aaBigMatrix[$i][$j] - $amatrixToSubstract[$i][$j];
+            }
+        }
+        
+        return $aaResult;
+    }
+    
+    /*
+     * Multipli la trace d'une matrice avec la matrice I déja prédéfinit.
+     */
+    private function multiplyTraceByMatriceI($iTrace, $aMatrix) 
+    {
+        
+        $iTrace = 2;
+        $max = count($aMatrix);
+        for ($row = 0, $col = 0; $col < count($aMatrix); ) {
+            
+            $aResult[$row][$col] = $iTrace * $aMatrix[$row][$col];
+            if ($col == 2) {
+                $col = 0;
+                ++$row;
+            }
+            else {
+                ++$col;
+            }
+            if ($row == 3) {
+                break;
+            }
+        }
+        
+        return $aResult;
     }
     
     /*
@@ -174,7 +240,7 @@ class PolynomeController extends Controller
     /*
      * Renvoi la trace de la matrice en parametre.
      */
-    private function findTrace($aMatrice)
+    private function findTrace($aMatrice, $iCoeff = 1)
     {
         $iTrace = 0;
         foreach ($aMatrice as $iKey => $iElement) {
@@ -182,7 +248,7 @@ class PolynomeController extends Controller
             $iTrace += (int) $aMatrice[$iKey][$iKey];
         }
         
-        return $iTrace;
+        return $iTrace * $iCoeff;
     }
     
     private function makeMatriceWithArray($aCoefficientsSource) 

@@ -33,12 +33,13 @@
                         </table>
                     </div>
                 </div>
-               <div class="alert alert-info">
+               
+               <div class="alert">
+                     <button id="resultat-btn" class="btn" style="float:right; padding-bottom: 10px;">Lancer le calcul</button>
                      <b>Calcul du polynome caracteristique : </b>
-                     <span class="alert alert-info fade in resultat"  id="pulsar-regular">
+                     <span class=" resultat"  id="pulsar-regular">
                         <i>Calcul non lancé</i>
                      </span>
-                     <button id="resultat-btn"style="float:right">Lancer le calcul</button>
                </div>
             </section>
         </section>
@@ -78,18 +79,64 @@
                           $('#c2').val(),
                           $('#c3').val()
                        ];
-                       
+                       var result = 0;
                        $.ajax({
                         type: "POST",
                         url: "{{ path('init_matrice') }}",
                         data: { aCoefficient: aCoefficient }
                         })
-                        .done(function( result ) {
-                            console.log('coucou raw');
-                             $(".resultat").text(result);
-                            }
-                        );
+                           .done(function( result ) {
+                                 $(".resultat").html(result);
+                                 //$(".resultat").html(buildMatrix(result));
+                         
+                              }
+                           );
                      });
+                     
+                     function buildMatrix(aaMatrix)
+                     {
+                        var tmp="";
+                            tmp+= "<div class=\"panel\">";
+                            tmp="<div class=\" adv-table editable-table\">";  
+                            tmp += "<table class=\"table table-striped table-hover table-bordered\">";
+                            tmp+= "<tr>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[0][0];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[0][1];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[0][2];
+                              tmp+= "</td>";
+                            tmp+= "</tr>";
+                            tmp+= "<tr>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[1][0];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[1][1];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[1][2];
+                              tmp+= "</td>";
+                            tmp+= "</tr>";
+                            tmp+= "<tr>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[2][0];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[2][1];
+                              tmp+= "</td>";
+                              tmp+= "<td>";
+                                 tmp+= aaMatrix[2][2];
+                              tmp+= "</td>";
+                            tmp+= "</tr>";
+                            tmp+= "</table>";
+                            tmp+= "</div>";
+                            tmp+= "</div>";
+                        return tmp;
+                     }
             });
         </script>
 {% endblock javascripts %}

@@ -79,8 +79,8 @@ class PolynomeController extends Controller
      * @Route("/initialisation/matrice", name="init_matrice")
      * @Method("POST")
      */
-    public function initMatriceCarre3Ajax(Request $oResquest) {
-
+    public function initMatriceCarre3Ajax(Request $oResquest) 
+    {
         $aCoefficientsFromAjax = $oResquest->request->get('aCoefficient');
         
         if ($oResquest->isXmlHttpRequest()) {
@@ -96,7 +96,6 @@ class PolynomeController extends Controller
     private function calculPolynomeCaracteristique($aCoefficients) 
     {
         $sPoly = "";
-
         // Calcul trace de la matrice A                   ok!
         //$iTraceMatrixA = $this->findTrace($aCoefficients,2);
         // Calcul de la matrice F1                        --- $this->findTrace($aMatrice, $iCoeff = 1)
@@ -107,12 +106,10 @@ class PolynomeController extends Controller
         // Calcul de la trace F1                          ok!
         // Calcul de la matrice F2
         // Calcul de la trace matrice F2.                 ok!
-        
         // -X3 + tr(A)X2 + 1/2tr(F1)X + 1/3tr(F2)
-        
         // A(A − tr(A)I3)
-        
         // Gestion des calcul pour la matrice A
+        
         $aMatriceI[0][0] = 1;
         $aMatriceI[0][1] = 0;
         $aMatriceI[0][2] = 0;
@@ -133,24 +130,53 @@ class PolynomeController extends Controller
         $tracaAI3        = $this->multiplyTraceByMatriceI($traceF1, $aMatriceI);
         $F1moinstracaAI3 = $this->substractMatrix($F1, $tracaAI3);
         $F2              = $this->multiplyMatrix($aCoefficients, $F1moinstracaAI3);
-        $traceF2         = $this->findTrace($F2, (1/3));
+        $traceF2         = (int)($this->findTrace($F2, (1/3)));
+        //var_dump($traceF2);
+        $sPolynomeCaractSerialize['normale'] = "-X<sup>3</sup> + ".$traceA."X<sup>2</sup> + ".$traceF1."X + ".$traceF2;
         
-        $sPoly = "-X<sup>3</sup> + ".$traceA."X<sup>2</sup> + ".$traceF1."X + ".$traceF2;
-        $sPolynomeCaractSerialize = $sPoly;
+        //$iResult = $this->findEvidentRootByInterval(-1, $traceA, $traceF1, $traceF2, $iMin, $iMax);
+        //$this->defineFactoriseForm($aRoots, $iIdPolynome);
+        $tt = $this->findEvidentRootByInterval(-1, $traceA, $traceF1, $traceF2, -10, 10);
+        $sPolynomeCaractSerialize['factorise'] = $this->findEvidentRootByInterval(-1, $traceA, $traceF1, $traceF2, -10, 10);
         // TODO resultat polynome caracteristique
-        return $sPolynomeCaractSerialize;
+        return $sPolynomeCaractSerialize['normale'];
+    }
+    
+    private function findEvidentRootByIntervalByArray($aPolynome, $iMin, $iMax)
+    {
+        // Recuperation de tout les digits du polynomes.
+        $aDigits = $oPolynome->getDigits();
+
+        $i = 97; //Initialisation de la lettre 'a' en ascii.
+        foreach ($aDigits as $oDigits) {
+
+            $cCoeff = chr($i);
+            $$cCoeff = $oDigits->getValue();
+            $i++;
+        }
+
+        $iResult = $this->findEvidentRootByInterval($a, $b, $c, $d, $iMin, $iMax);
+        $aAllRoots = explode(",",$iResult['roots']);
+        preg_match_all("/\[(-?[0-9]+)?\]/", $iResult['roots'], $matches);
+        $aAllRootsInt = array();
+        foreach ($matches[1] as $iRoots) {
+
+            $aAllRootsInt[] = (int)$iRoots;
+        }
+
+        return $aAllRootsInt;
     }
     
     /*
      * Retourne une matrice resultante d'une soustraction de deux matrices.
      */
-    private function substractMatrix($aaBigMatrix, $amatrixToSubstract) 
+    private function substractMatrix($aaBigMatrix, $aaMatrixToSubstract) 
     {
         $nbCols = count($aaBigMatrix[0]);
         for ($i = 0; $i < $nbCols; ++$i) {
              for ($j = 0; $j < $nbCols; ++$j) {
            
-                $aaResult[$i][$j] = $aaBigMatrix[$i][$j] - $amatrixToSubstract[$i][$j];
+                $aaResult[$i][$j] = $aaBigMatrix[$i][$j] - $aaMatrixToSubstract[$i][$j];
             }
         }
         
@@ -162,7 +188,6 @@ class PolynomeController extends Controller
      */
     private function multiplyTraceByMatriceI($iTrace, $aMatrix) 
     {
-        
         $iTrace = 2;
         $max = count($aMatrix);
         for ($row = 0, $col = 0; $col < count($aMatrix); ) {
@@ -351,8 +376,6 @@ class PolynomeController extends Controller
         if ($oResquest->isXmlHttpRequest()) {
 
             $oEm = $this->getDoctrine()->getManager();
-
-
             // Recuperation des données de la requete ajax
             $polyname = $oResquest->request->get('polyname');
             $x3 = $oResquest->request->get('x3');
@@ -361,7 +384,6 @@ class PolynomeController extends Controller
             $x0 = $oResquest->request->get('x0');
             $iResult = $x3+$x2+$x1+$x0;
             $iResult = $polyname."".$x3."".$x2."".$x1."".$x0;
-
             // Enregistrement des saisies en bases
             $oPolynome = new Polynome();
             $oPolynome->setDegre(Polynome::DEGRE);
@@ -380,6 +402,7 @@ class PolynomeController extends Controller
             $oEm->persist($oPolynome);
             $oEm->flush();
         }
+        
         return new Response($iResult);
     }
 
@@ -409,6 +432,7 @@ class PolynomeController extends Controller
             $oEm->remove($oPolynome);
             $oEm->flush();
         }
+        
         return new Response();
     }
 
@@ -546,19 +570,30 @@ class PolynomeController extends Controller
     private function defineFactoriseForm($aRoots, $iIdPolynome)
     {
         $oEm = $this->getDoctrine()->getManager();
+        $signe2 = "";
         $oCurrentPolynome = $oEm->getRepository("EtnaMathsBundle:Polynome")
                                 ->findOneBy(array("id" => $iIdPolynome));
+        
+        $aDigits = $oCurrentPolynome->getDigits();
+        foreach ($aDigits as $key=>$value) {
+            if (0 == $key) {
+                if ($value->getValue() < 0) {
+                    $signe2 = "-";
+                }
+            }
+        }
+        
         $sFormRender = "";
         foreach ($aRoots as $iRoots) {
 
-        // Gestion du signe du coefficient.
-        $signe = "-";
-        if ($iRoots < 0) {
-            $signe = "+";
-            $iRoots = $iRoots * (-1);
+            // Gestion du signe du coefficient.
+            $signe = "-";
+            if ($iRoots < 0) {
+                $signe = "+";
+                $iRoots = $iRoots * (-1);
+            }
+            $sFormRender .= $signe2."(x ".$signe." ".$iRoots.")";
         }
-        $sFormRender .= "(x ".$signe." ".$iRoots.")";
-    }
 
         if (count($aRoots) < 3 && count($aRoots) > 0)  {
             $sFormRender = $this->findQx($oCurrentPolynome, $aRoots);
